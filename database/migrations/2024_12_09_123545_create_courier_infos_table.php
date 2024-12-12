@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('courier_infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger(column: 'user_id')->nullable();
-            $table->unsignedBigInteger(column: 'website_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('website_id')->nullable();
             $table->string('courier_name');
             $table->string('app_key');
             $table->string('app_secret');

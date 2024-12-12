@@ -70,6 +70,18 @@
                         <p> Coupons </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('courier.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-truck"></i>
+                        <p> Courier Info </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sms-gateway.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-chat-dots"></i>
+                        <p> Sms Gateway </p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('setting') }}" class="nav-link">
@@ -90,7 +102,5 @@
             });
         });
         document.querySelector(`a[href="${location.href}"]`).classList.add('active')
-
     </script>
-
 @endpush

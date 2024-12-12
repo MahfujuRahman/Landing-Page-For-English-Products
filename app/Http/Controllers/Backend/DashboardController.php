@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 
-class DashboardController extends Controller
+class DashboardController extends AdminController
 {
-    public function index(){
-        
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function index()
+    {
         return view("Backend.index");
     }
 }
