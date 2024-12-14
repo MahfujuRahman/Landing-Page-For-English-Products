@@ -7,7 +7,7 @@
             </li>
             <li class="nav-item d-none d-md-block"> <a href="{{ route('admin.dashboard') }}"
                     class="nav-link">Dashboard</a> </li>
-            {{-- <li class="nav-item d-none d-md-block"> <a href="{{ route('product.index') }}" class="nav-link">Products</a> --}}
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,7 +20,6 @@
                         </li>
                     @endforeach
                 </ul>
-            </li>
             </li>
         </ul>
 

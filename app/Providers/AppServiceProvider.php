@@ -17,9 +17,6 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $data = Website::orderBy('id')->select('site_name', 'site_url')->get();

@@ -2,82 +2,67 @@
 
 namespace App\Http\Controllers\Backend\Order\SmsGateWay;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
+use App\Models\Order\SmsGatewayInfo;
+use Illuminate\Support\Facades\Auth;
 
-class SmsGatewayController extends Controller
+class SmsGatewayController extends AdminController
 {
-    public function index()
+    public function __construct()
     {
-        $data = Coupons::orderBy('id')->get();
-
-        return view('Backend.pages.coupon.index', compact('data'));
+        parent::__construct();
     }
 
-    public function create()
+    public function index()
     {
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-        return view('Backend.pages.coupon.create', compact('website'));
+        $user = Auth::user()->id;
+        $data = SmsGatewayInfo::where('user_id', $user)->orderBy('id')->first();
+        $website = $this->website;
+
+        return view('Backend.pages.sms-gateway.index', compact('data', 'website'));
     }
 
     public function store(Request $request)
     {
+        $user = Auth::user()->id;
+
         $data = $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
             'website_id' => 'required|integer|exists:websites,id',
-            'coupon_code' => 'required|string|max:255|unique:coupons,coupon_code',
-            'discount' => 'required|numeric|min:0|max:100',
+            'gateway_name' => 'required|string|max:255',
+            'app_key' => 'required|string|max:255',
+            'app_secret' => 'required|string|max:255',
             'is_active' => 'required|boolean',
         ]);
 
-        Coupons::create([
-            'user_id' => $data['user_id'],
-            'website_id' => $data['website_id'],
-            'coupon_code' => $data['coupon_code'],
-            'discount' => $data['discount'],
-            'is_active' => $data['is_active'],
-        ]);
+        $courier = SmsGatewayInfo::where('user_id', $user)
+            ->where('website_id', $data['website_id'])
+            ->first();
 
-        return redirect()->route('coupons.index')->with('success', 'Coupon added successfully!');
-    }
+        if ($courier) {
+            $courier->update([
+                'gateway_name' => $data['gateway_name'],
+                'app_key' => $data['app_key'],
+                'app_secret' => $data['app_secret'],
+                'is_active' => $data['is_active'],
+                'creator' => $user,
+            ]);
 
-    public function edit($id)
-    {
-        $coupon = Coupons::findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-        return view('Backend.pages.coupon.edit', compact('coupon', 'website'));
-    }
+            $message = 'Sms Gateway updated successfully!';
+        } else {
+            SmsGatewayInfo::create([
+                'user_id' => $user,
+                'website_id' => $data['website_id'],
+                'gateway_name' => $data['gateway_name'],
+                'app_key' => $data['app_key'],
+                'app_secret' => $data['app_secret'],
+                'is_active' => $data['is_active'],
+                'creator' => $user,
+            ]);
 
-    public function update(Request $request, $id)
-    {
-        $coupon = Coupons::findOrFail($id);
+            $message = 'Sms Gateway added successfully!';
+        }
 
-        $data = $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
-            'website_id' => 'required|integer|exists:websites,id',
-            'coupon_code' => 'required|string|max:255|unique:coupons,coupon_code,' . $id,
-            'discount' => 'required|numeric|min:0|max:100',
-            'is_active' => 'required|boolean',
-        ]);
-
-        $coupon->update([
-            'user_id' => $data['user_id'],
-            'website_id' => $data['website_id'],
-            'coupon_code' => $data['coupon_code'],
-            'discount' => $data['discount'],
-            'is_active' => $data['is_active'],
-        ]);
-
-        return redirect()->route('coupons.index')->with('success', 'Coupon updated successfully!');
-    }
-
-    public function destroy($id)
-    {
-        $coupon = Coupons::findOrFail($id);
-        $coupon->delete();
-
-        return redirect()->route('coupons.index')->with('success', 'Coupon deleted successfully!');
+        return redirect()->route('sms-gateway.index')->with('success', $message);
     }
 }

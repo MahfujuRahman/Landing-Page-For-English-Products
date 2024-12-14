@@ -5,6 +5,7 @@ use App\Models\Home\Video;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\SelectedWebsite;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\About\AboutController;
@@ -37,13 +38,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('video', VideoController::class);
     Route::resource('order', OrderController::class);
     Route::resource('sms-gateway', SmsGatewayController::class);
-    Route::resource('couriers', CourierInfoController::class);
+    Route::resource('courier', CourierInfoController::class);
+    Route::resource('website', WebsiteController::class);
 
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('setting/{slug}', [SettingController::class, 'fetchData'])->name('setting.fetch');
     Route::post('setting/{slug}', [SettingController::class, 'postData'])->name('setting.update');
 
-    Route::resource('website', WebsiteController::class);
+
+    Route::post('/select-website', [SelectedWebsite::class, 'storeSelectedWebsite'])->name('select.website');
 });
 
 //Frontend

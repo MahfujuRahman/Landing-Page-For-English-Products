@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers\Backend\Order\Setting;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Models\Order\Setting;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class SettingController extends Controller
+class SettingController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index()
     {
         $data = Setting::select('id','title','value')->get();
         $details = Setting::first();
 
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
 
 
         return view('Backend.pages.setting.index', compact('data','details', 'website'));

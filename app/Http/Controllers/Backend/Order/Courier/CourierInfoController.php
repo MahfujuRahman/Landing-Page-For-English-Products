@@ -18,99 +18,51 @@ class CourierInfoController extends AdminController
 
     public function index()
     {
-        $data = CourierInfo::orderBy('id')->get();
+        $user = Auth::user()->id;
+        $data = CourierInfo::where('user_id', $user)->orderBy('id')->first();
+        $website = $this->website;
 
-        return view('Backend.pages.courier.index', compact('data'));
-    }
-
-    public function create()
-    {
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-        return view('Backend.pages.coupon.create', compact('website'));
+        return view('Backend.pages.courier.index', compact('data', 'website'));
     }
 
     public function store(Request $request)
     {
+        $user = Auth::user()->id;
+
         $data = $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
             'website_id' => 'required|integer|exists:websites,id',
-            'coupon_code' => 'required|string|max:255|unique:coupons,coupon_code',
-            'discount' => 'required|numeric|min:0|max:100',
+            'courier_name' => 'required|string|max:255',
+            'app_key' => 'required|string|max:255',
+            'app_secret' => 'required|string|max:255',
             'is_active' => 'required|boolean',
         ]);
 
-        Coupons::create([
-            'user_id' => $data['user_id'],
-            'website_id' => $data['website_id'],
-            'coupon_code' => $data['coupon_code'],
-            'discount' => $data['discount'],
-            'is_active' => $data['is_active'],
-        ]);
+        $courier = CourierInfo::where('user_id', $user)
+            ->where('website_id', $data['website_id'])
+            ->first();
 
-        return redirect()->route('coupons.index')->with('success', 'Coupon added successfully!');
+        if ($courier) {
+            $courier->update([
+                'courier_name' => $data['courier_name'],
+                'app_key' => $data['app_key'],
+                'app_secret' => $data['app_secret'],
+                'is_active' => $data['is_active'],
+            ]);
+
+            $message = 'Courier updated successfully!';
+        } else {
+            CourierInfo::create([
+                'user_id' => $user,
+                'website_id' => $data['website_id'],
+                'courier_name' => $data['courier_name'],
+                'app_key' => $data['app_key'],
+                'app_secret' => $data['app_secret'],
+                'is_active' => $data['is_active'],
+            ]);
+
+            $message = 'Courier added successfully!';
+        }
+
+        return redirect()->route('courier.index')->with('success', $message);
     }
-
-    public function edit($id)
-    {
-        $coupon = Coupons::findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-        return view('Backend.pages.coupon.edit', compact('coupon', 'website'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $coupon = Coupons::findOrFail($id);
-
-        $data = $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
-            'website_id' => 'required|integer|exists:websites,id',
-            'coupon_code' => 'required|string|max:255|unique:coupons,coupon_code,' . $id,
-            'discount' => 'required|numeric|min:0|max:100',
-            'is_active' => 'required|boolean',
-        ]);
-
-        $coupon->update([
-            'user_id' => $data['user_id'],
-            'website_id' => $data['website_id'],
-            'coupon_code' => $data['coupon_code'],
-            'discount' => $data['discount'],
-            'is_active' => $data['is_active'],
-        ]);
-
-        return redirect()->route('coupons.index')->with('success', 'Coupon updated successfully!');
-    }
-
-    public function destroy($id)
-    {
-        $coupon = Coupons::findOrFail($id);
-        $coupon->delete();
-
-        return redirect()->route('coupons.index')->with('success', 'Coupon deleted successfully!');
-    }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $data = $request->validate([
-    //         'website_id' => 'required|exists:websites,id',
-    //         'courier_name' => 'required|string|max:255',
-    //         'app_key' => 'required|string|max:255',
-    //         'app_secret' => 'required|string|max:255',
-    //         'is_active' => 'required|boolean',
-    //     ]);
-
-    //     $courier = CourierInfo::findOrFail($id);
-
-    //     $courier->update([
-    //         'user_id' => Auth::user()->id,
-    //         'website_id' => $data['website_id'],
-    //         'courier_name' => $data['courier_name'],
-    //         'app_key' => $data['app_key'],
-    //         'app_secret' => $data['app_secret'],
-    //         'is_active' => $data['is_active'],
-    //     ]);
-
-    //     return redirect()->route('couriers.index')->with('success', 'Courier updated successfully.');
-    // }
 }

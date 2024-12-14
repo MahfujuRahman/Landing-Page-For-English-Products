@@ -1,65 +1,99 @@
 @extends('Backend.layouts.master')
 
 @section('content')
-<main class="app-main">
-    <div class="container mt-5">
-        <!-- Display Success Message -->
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    <main class="app-main">
+        <div class="container my-5">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Coupon's</h2>
-            <a href="{{ route('coupons.create') }}" class="btn btn-primary">Add Coupon</a>
-        </div>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Sms Gateway Info</h2>
+                        </div>
+                        <div>
+                            <a href="{{ route('sms-gateway.index') }}" class="btn btn-dark mb-3">Back</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
 
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Coupons List</h5>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover text-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Code</th>
-                            <th>Discount</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($data as $index => $coupon)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $coupon->coupon_code }}</td>
-                                <td>{{ $coupon->discount }}%</td>
-                                <td>{{ $coupon->is_active ? 'Active' : 'Inactive' }}</td>
-                                <td>
-                                    <a href="{{ route('coupons.edit', $coupon->id) }}"
-                                        class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('coupons.destroy', $coupon->id) }}" method="POST"
-                                        class="d-inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete this coupon?')">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-muted">No coupons available. Click "Add Coupon" to create
-                                    one.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('sms-gateway.store') }}" method="POST">
+                        @csrf
+
+                        <div class="mb-4">
+                            <label for="website_id" class="form-label">Website Name</label>
+                            <select class="form-control" id="website_id" name="website_id" required>
+                                <option value="" disabled {{ !isset($data) ? 'selected' : '' }}>Select website
+                                </option>
+                                @foreach ($website as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ (old('website_id') ?? ($data->website_id ?? '')) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->site_name }} - {{ $item->site_url }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="courier_name" class="form-label">Gateway Name</label>
+                            <input type="text" class="form-control" id="gateway_name" name="gateway_name"
+                                value="{{ old('gateway_name') ?? ($data->gateway_name ?? '') }}"
+                                placeholder="Enter Gateway Name" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="app_key" class="form-label">App Key</label>
+                            <input type="text" class="form-control" id="app_key" name="app_key"
+                                value="{{ old('app_key') ?? ($data->app_key ?? '') }}" placeholder="Enter App Key"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="app_secret" class="form-label">App Secret</label>
+                            <input type="text" class="form-control" id="app_secret" name="app_secret"
+                                value="{{ old('app_secret') ?? ($data->app_secret ?? '') }}" placeholder="Enter App Secret"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="is_active" class="form-label">Status</label>
+                            <select class="form-control" id="is_active" name="is_active" required>
+                                <option value="1"
+                                    {{ (old('is_active') ?? ($data->is_active ?? '')) == 1 ? 'selected' : '' }}>
+                                    Active
+                                </option>
+                                <option value="0"
+                                    {{ (old('is_active') ?? ($data->is_active ?? '')) == 0 ? 'selected' : '' }}>
+                                    Inactive
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-primary px-4">
+                                {{ isset($data) ? 'Update Sms Gateway' : 'Save Sms Gateway' }}
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 @endsection
