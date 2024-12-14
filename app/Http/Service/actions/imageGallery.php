@@ -22,19 +22,19 @@ class imageGallery
 
         ImageGalleryValue::create([
             'image_gallery_title_id' => $gallery_id->id,
-            'image' => 'dummy_image/product_1.jpg',
+            'image' => 'dummy_image/product-4.jpg',
             'order' => 1,
         ]);
 
         ImageGalleryValue::create([
             'image_gallery_title_id' => $gallery_id->id,
-            'image' => 'dummy_image/product_2.jpg',
+            'image' => 'dummy_image/product-5.jpg',
             'order' => 2,
         ]);
 
         ImageGalleryValue::create([
             'image_gallery_title_id' => $gallery_id->id,
-            'image' => 'dummy_image/product_3.jpg',
+            'image' => 'dummy_image/product-6.jpg',
             'order' => 3,
         ]);
 

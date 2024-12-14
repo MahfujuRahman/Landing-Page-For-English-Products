@@ -24,8 +24,18 @@ class banner
 
         BannerImages::create([
             'banner_id' => $banner->id,
-            'image' => 'dummy_image/banner.webp',
+            'image' => 'dummy_image/product-1.jpg',
             'order' => 1,
+        ]);
+        BannerImages::create([
+            'banner_id' => $banner->id,
+            'image' => 'dummy_image/product-2.jpg',
+            'order' => 2,
+        ]);
+        BannerImages::create([
+            'banner_id' => $banner->id,
+            'image' => 'dummy_image/product-3.jpg',
+            'order' => 3,
         ]);
 
         return;

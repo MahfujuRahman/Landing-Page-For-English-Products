@@ -12,12 +12,14 @@
     <meta name="keywords" content="Dashboard">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
+    {{-- <link rel="stylesheet" href="{{ asset('backend/fonts/source-sans.css') }}"> --}}
+
     <link rel="stylesheet" href="{{ asset('backend/css/overlayscrollbars.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('backend/css/bootstrap-icons.min.css') }}"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('backend/css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 
 </head>
@@ -35,8 +37,10 @@
     </div>
     <script src="{{ asset('backend/js/overlayscrollbars.browser.es6.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    {{-- <script src="{{ asset('backend/js/popper.min.js') }}"></script> --}}
     <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('backend/js/admin.js') }}"></script>
+    <script src="{{ asset('backend/js/jquery-3.6.0.min.js') }}"></script>
 
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";

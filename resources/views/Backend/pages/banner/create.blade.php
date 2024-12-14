@@ -55,14 +55,6 @@
                                 <div class="col-md-12">
                                     <input type="text" class="form-control" id="title" name="title"
                                         placeholder="Enter banner title" required>
-                                    @error('title')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="col-md-3 image-preview-container">
-                                    <!-- Preview will be shown here if any image is selected -->
                                 </div>
                             </div>
                         </div>
@@ -75,12 +67,7 @@
                                     <input type="text" class="form-control" id="subtitle" name="subtitle"
                                         placeholder="Enter banner subtitle">
                                 </div>
-                                <div class="col-md-3 image-preview-container">
-                                    <!-- Preview will be shown here if any image is selected -->
-                                </div>
                             </div>
-                            <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                         </div>
 
 
@@ -94,12 +81,7 @@
                                             <input type="text" class="form-control" id="btn_title_1" name="btn_title_1"
                                                 placeholder="Enter banner Button Title 1">
                                         </div>
-                                        <div class="col-md-3 image-preview-container">
-                                            <!-- Preview will be shown here if any image is selected -->
-                                        </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                        style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                                 </div>
 
                             </div>
@@ -112,12 +94,7 @@
                                             <input type="text" class="form-control" id="btn_url_1" name="btn_url_1"
                                                 placeholder="Enter banner Button Url 1">
                                         </div>
-                                        <div class="col-md-3 image-preview-container">
-                                            <!-- Preview will be shown here if any image is selected -->
-                                        </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                        style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -132,12 +109,7 @@
                                             <input type="text" class="form-control" id="btn_title_2" name="btn_title_2"
                                                 placeholder="Enter Button 2 Title">
                                         </div>
-                                        <div class="col-md-3 image-preview-container">
-                                            <!-- Preview will be shown here if any image is selected -->
-                                        </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                        style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -149,12 +121,7 @@
                                             <input type="text" class="form-control" id="btn_url_2" name="btn_url_2"
                                                 placeholder="Enter banner Button Url 2">
                                         </div>
-                                        <div class="col-md-3 image-preview-container">
-                                            <!-- Preview will be shown here if any image is selected -->
-                                        </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                        style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +143,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="col-md-12 pt-4 image-preview-container">
+                                <div class="col-md-12 py-4 image-preview-container">
                                     <!-- Image preview will be here -->
                                 </div>
                             </div>
@@ -200,96 +167,7 @@
         </div>
     </main>
     @push('scripts')
-        <script>
-
-            document.getElementById('add-image-btn').addEventListener('click', function() {
-                const imageContainer = document.getElementById('image-container');
-                const newImageInput = document.createElement('div');
-                newImageInput.classList.add('row', 'mb-3');
-                newImageInput.innerHTML = `
-                <div class="col-md-9">
-                    <input type="file" class="form-control" name="images[]" accept="image/*">
-                </div>
-                <div class="col-md-3 image-preview-container"></div>
-            `;
-                imageContainer.appendChild(newImageInput);
-
-                // Handle remove button for the newly added image input
-                const removeButton = document.createElement('button');
-                removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-2', 'remove-row');
-                removeButton.textContent = 'Remove';
-                removeButton.style.display = 'inline-block';
-                newImageInput.appendChild(removeButton);
-
-                removeButton.addEventListener('click', function() {
-                    newImageInput.remove();
-                });
-            });
-
-            // Handle preview of selected images
-            document.getElementById('image-container').addEventListener('change', function(e) {
-                if (e.target.type === 'file') {
-                    showImagePreview(e.target);
-                }
-            });
-
-            function showImagePreview(inputElement) {
-                const previewContainer = inputElement.closest('.row').querySelector('.image-preview-container');
-                previewContainer.innerHTML = ''; // Clear previous preview
-
-                const file = inputElement.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.maxWidth = '200px';
-                        img.style.height = 'auto';
-                        img.style.borderRadius = '5px';
-
-                        // Add remove button
-                        const removeButton = document.createElement('button');
-                        removeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-2', 'remove-image', 'ms-4');
-                        removeButton.textContent = 'Remove';
-                        removeButton.addEventListener('click', function() {
-                            previewContainer.innerHTML = ''; // Clear preview
-                            inputElement.value = ''; // Clear input field
-                        });
-
-                        previewContainer.appendChild(img);
-                        previewContainer.appendChild(removeButton);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-
-
-            function removeImageInput(imageInputContainer) {
-                const previewContainer = imageInputContainer.querySelector('.image-preview-container');
-                const inputField = imageInputContainer.querySelector('input[type="file"], input[type="text"]');
-
-                // Remove input field and image preview
-                if (inputField) {
-                    inputField.value = ''; // Clear the file input
-                }
-                previewContainer.innerHTML = ''; // Clear image preview
-
-                const removeButton = imageInputContainer.querySelector('.remove-row');
-                if (removeButton) {
-                    removeButton.style.display = 'none';
-                }
-
-                imageInputContainer.remove();
-            }
-
-            const removeRowButtons = document.querySelectorAll('.remove-row');
-            removeRowButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('.mb-3');
-                    removeImageInput(row);
-                });
-            });
-        </script>
+        <script src="{{ asset('backend/js/createblade.js') }}"></script>
     @endpush
 
 @endsection

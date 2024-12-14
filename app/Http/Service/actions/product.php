@@ -16,7 +16,7 @@ class product
             'name' => 'Product Name',
             'price' => '1200',
             'discount_price' => '999',
-            'image' => 'dummy_image/product_1.jpg',
+            'image' => 'dummy_image/product-1.jpg',
         ]);
 
         return;
