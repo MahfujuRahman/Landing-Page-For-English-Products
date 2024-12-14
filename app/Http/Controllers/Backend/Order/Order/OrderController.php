@@ -14,62 +14,26 @@ class OrderController extends Controller
         return view('Backend.pages.order.index', compact('data'));
     }
 
-    public function create()
-    {
-        return view('Backend.pages.global_discount.create');
-    }
-
-    // public function store(Request $request)
-    // {
-    //     $data = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'discount' => 'required|numeric|min:0|max:100',
-    //         'start_datetime' => 'required|date',
-    //         'end_datetime' => 'required|date|after:start_datetime',
-    //     ]);
-
-    //     GlobalDiscount::create([
-    //         'title' => $data['title'],
-    //         'discount' => $data['discount'],
-    //         'start_datetime' => $data['start_datetime'],
-    //         'end_datetime' => $data['end_datetime'],
-    //     ]);
-
-    //     return redirect()->route('global-discounts.index')->with('success', 'Global Discount added successfully!');
-    // }
-
-    // public function edit($id)
-    // {
-    //     $globalDiscount = GlobalDiscount::findOrFail($id);
-    //     return view('Backend.pages.global_discount.edit', compact('globalDiscount'));
-    // }
-
     public function update(Request $request, $id)
     {
-        $globalDiscount = OrderSheet::findOrFail($id);
+        $order = OrderSheet::findOrFail($id);
 
         $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'discount' => 'required|numeric|min:0|max:100',
-            'start_datetime' => 'required|date',
-            'end_datetime' => 'required|date|after:start_datetime',
+            'delivery_status' => 'required|in:pending,processing,accepted,delivered,cancelled',
         ]);
 
-        $globalDiscount->update([
-            'title' => $data['title'],
-            'discount' => $data['discount'],
-            'start_datetime' => $data['start_datetime'],
-            'end_datetime' => $data['end_datetime'],
+        $order->update([
+            'delivery_status' => $data['delivery_status'],
         ]);
 
-        return redirect()->route('order.index')->with('success', 'Order updated successfully!');
+        return redirect()->route('order.show', $order->id)->with('success', 'Order updated successfully!');
     }
 
     public function show($id)
     {
         $data = OrderSheet::findOrFail($id);
         $product = json_decode($data->product_details);
-        return view('Backend.pages.order.show', compact('data','product'));
+        return view('Backend.pages.order.show', compact('data', 'product'));
     }
 
     public function destroy($id)

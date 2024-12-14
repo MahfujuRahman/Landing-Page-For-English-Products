@@ -19,8 +19,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $data = Website::orderBy('id')->select('site_name', 'site_url')->get();
+        $data = Website::orderBy('id')->select('site_name', 'site_url', 'id')->get();
         view()->share('navbarData', $data);
-
     }
 }

@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 
 class SelectedWebsite extends Controller
 {
-    public function storeSelectedWebsite(Request $request)
+    public function storeSelectedWebsite($website_id)
     {
-        $request->validate([
-            'website_id' => 'required|integer|exists:websites,id',
-        ]);
+        // Store the selected website ID in session
+        session(['selectedWebsiteId' => $website_id]);
 
-        session(['selected_website_id' => $request->website_id]);
+        // Redirect back to the previous page or a desired page
+        return redirect()->back();
 
-        return redirect()->back()->with('success', 'Website selected successfully!');
     }
 }
