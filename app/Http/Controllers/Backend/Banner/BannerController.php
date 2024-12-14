@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Backend\Banner;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use App\Models\Home\Banner;
 use Illuminate\Http\Request;
 use App\Models\Home\BannerImages;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 
-class BannerController extends Controller
+class BannerController extends AdminController
 {
     public function index()
     {
@@ -20,9 +22,7 @@ class BannerController extends Controller
 
     public function create()
     {
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-
+        $website = $this->website;
         return view('Backend.pages.banner.create', compact('website'));
     }
 
@@ -109,9 +109,8 @@ class BannerController extends Controller
 
     public function edit(Banner $banner)
     {
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
-
+        $website = $this->website;
+        // $banner = $banner->load('images');
         return view('Backend.pages.banner.edit', compact('banner', 'website'));
     }
 

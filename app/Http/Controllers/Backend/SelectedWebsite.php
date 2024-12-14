@@ -11,8 +11,6 @@ class SelectedWebsite extends Controller
     {
         // Store the selected website ID in session
         session(['selectedWebsiteId' => $website_id]);
-
-        // Redirect back to the previous page or a desired page
         return redirect()->back();
 
     }

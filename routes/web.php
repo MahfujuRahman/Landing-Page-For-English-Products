@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\SelectedWebsite;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\About\AboutController;
+use App\Http\Controllers\Backend\RelatedDataController;
 use App\Http\Controllers\Backend\Video\VideoController;
 use App\Http\Controllers\Backend\Banner\BannerController;
 use App\Http\Controllers\Backend\Website\SalesController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::post('setting/{slug}', [SettingController::class, 'postData'])->name('setting.update');
 
     Route::get('/set-selected-site/{website_id}', [SelectedWebsite::class, 'storeSelectedWebsite'])->name('set.selectedSite');
+    Route::get('/get-website-data/{website_id}', [RelatedDataController::class, 'getWebsiteData'])->name('get.websiteData');
 });
 
 //Frontend

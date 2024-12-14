@@ -201,7 +201,7 @@
     </main>
     @push('scripts')
         <script>
-            // Handle adding another image input
+
             document.getElementById('add-image-btn').addEventListener('click', function() {
                 const imageContainer = document.getElementById('image-container');
                 const newImageInput = document.createElement('div');
@@ -263,7 +263,7 @@
                 }
             }
 
-            // Function to remove the input and preview (same remove button for both)
+
             function removeImageInput(imageInputContainer) {
                 const previewContainer = imageInputContainer.querySelector('.image-preview-container');
                 const inputField = imageInputContainer.querySelector('input[type="file"], input[type="text"]');
@@ -274,17 +274,14 @@
                 }
                 previewContainer.innerHTML = ''; // Clear image preview
 
-                // Hide the remove button for this row
                 const removeButton = imageInputContainer.querySelector('.remove-row');
                 if (removeButton) {
                     removeButton.style.display = 'none';
                 }
 
-                // Remove the entire row after clearing
                 imageInputContainer.remove();
             }
 
-            // Handle remove row button for already existing input fields
             const removeRowButtons = document.querySelectorAll('.remove-row');
             removeRowButtons.forEach(button => {
                 button.addEventListener('click', function() {

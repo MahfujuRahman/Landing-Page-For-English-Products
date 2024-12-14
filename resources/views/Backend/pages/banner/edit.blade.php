@@ -50,7 +50,6 @@
                             </div>
                         </div> --}}
 
-
                         <div class="mb-4 position-relative">
                             <label for="website_id" class="form-label">Website Name</label>
                             <select class="form-control" id="website_id" name="website_id" required>
@@ -171,7 +170,6 @@
 
     @push('scripts')
         <script>
-            // Handle adding another image input
             document.getElementById('add-image-btn').addEventListener('click', function() {
                 const imageContainer = document.getElementById('image-container');
                 const newImageInput = document.createElement('div');
@@ -236,7 +234,6 @@
             // Array to store removed image IDs
             let removedImages = [];
 
-            // Event delegation for removing existing images
             document.addEventListener('click', function(e) {
                 if (e.target && e.target.classList.contains('remove-image')) {
                     const imageId = e.target.getAttribute('data-image-id');
