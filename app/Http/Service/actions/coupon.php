@@ -12,7 +12,7 @@ class coupon
         coupon_title::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'coupon_code' => 'Discount10',
+            'coupon_code' => 'অফার-১০',
             'discount' => 10,
             'is_active' => 1,
         ]);
@@ -20,7 +20,7 @@ class coupon
         coupon_title::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'coupon_code' => 'Discount20',
+            'coupon_code' => 'অফার-২০',
             'discount' => 20,
             'is_active' => 0,
         ]);

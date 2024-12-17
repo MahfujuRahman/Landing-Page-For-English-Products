@@ -4,7 +4,10 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-    --default-font: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --default-font: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
     --heading-font: "Jost", sans-serif;
     --nav-font: "Poppins", sans-serif;
 }
@@ -47,8 +50,6 @@
     --background-color: #f5f6f8;
     --surface-color: #ffffff;
 }
-
-
 
 .dark-background {
     --background-color: #37517e;
@@ -270,7 +271,7 @@ h6 {
         padding-right: 0;
     }
 
-    .navmenu li:hover>a,
+    .navmenu li:hover > a,
     .navmenu .active,
     .navmenu .active:focus {
         color: var(--nav-hover-color);
@@ -309,11 +310,11 @@ h6 {
 
     .navmenu .dropdown ul a:hover,
     .navmenu .dropdown ul .active:hover,
-    .navmenu .dropdown ul li:hover>a {
+    .navmenu .dropdown ul li:hover > a {
         color: var(--nav-dropdown-hover-color);
     }
 
-    .navmenu .dropdown:hover>ul {
+    .navmenu .dropdown:hover > ul {
         opacity: 1;
         top: 100%;
         visibility: visible;
@@ -325,7 +326,7 @@ h6 {
         visibility: hidden;
     }
 
-    .navmenu .dropdown .dropdown:hover>ul {
+    .navmenu .dropdown .dropdown:hover > ul {
         opacity: 1;
         top: 0;
         left: -100%;
@@ -358,7 +359,7 @@ h6 {
     }
 
     .navmenu .megamenu ul li a,
-    .navmenu .megamenu ul li:hover>a {
+    .navmenu .megamenu ul li:hover > a {
         padding: 10px 20px;
         font-size: 15px;
         color: var(--nav-dropdown-color);
@@ -370,7 +371,7 @@ h6 {
         color: var(--nav-dropdown-hover-color);
     }
 
-    .navmenu .megamenu:hover>ul {
+    .navmenu .megamenu:hover > ul {
         opacity: 1;
         top: 100%;
         visibility: visible;
@@ -438,7 +439,11 @@ h6 {
         justify-content: center;
         border-radius: 50%;
         transition: 0.3s;
-        background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+        background-color: color-mix(
+            in srgb,
+            var(--accent-color),
+            transparent 90%
+        );
     }
 
     .navmenu a i:hover,
@@ -467,7 +472,8 @@ h6 {
         padding: 10px 0;
         margin: 10px 20px;
         background-color: var(--nav-dropdown-background-color);
-        border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+        border: 1px solid
+            color-mix(in srgb, var(--default-color), transparent 90%);
         box-shadow: none;
         transition: all 0.5s ease-in-out;
     }
@@ -476,7 +482,7 @@ h6 {
         background-color: rgba(33, 37, 41, 0.1);
     }
 
-    .navmenu .dropdown>.dropdown-active {
+    .navmenu .dropdown > .dropdown-active {
         display: block;
         background-color: rgba(33, 37, 41, 0.03);
     }
@@ -503,7 +509,7 @@ h6 {
         transition: 0.3s;
     }
 
-    .mobile-nav-active .navmenu>ul {
+    .mobile-nav-active .navmenu > ul {
         display: block;
     }
 }
@@ -533,7 +539,11 @@ h6 {
     margin-bottom: 15px;
     padding: 6px 8px;
     position: relative;
-    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+    background-color: color-mix(
+        in srgb,
+        var(--background-color),
+        transparent 50%
+    );
     border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
     box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -545,19 +555,23 @@ h6 {
     border-color: var(--accent-color);
 }
 
-.footer .footer-newsletter .newsletter-form input[type=email] {
+.footer .footer-newsletter .newsletter-form input[type="email"] {
     border: 0;
     padding: 4px;
     width: 100%;
-    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+    background-color: color-mix(
+        in srgb,
+        var(--background-color),
+        transparent 50%
+    );
     color: var(--default-color);
 }
 
-.footer .footer-newsletter .newsletter-form input[type=email]:focus-visible {
+.footer .footer-newsletter .newsletter-form input[type="email"]:focus-visible {
     outline: none;
 }
 
-.footer .footer-newsletter .newsletter-form input[type=submit] {
+.footer .footer-newsletter .newsletter-form input[type="submit"] {
     border: 0;
     font-size: 16px;
     padding: 0 20px;
@@ -568,7 +582,7 @@ h6 {
     border-radius: 50px;
 }
 
-.footer .footer-newsletter .newsletter-form input[type=submit]:hover {
+.footer .footer-newsletter .newsletter-form input[type="submit"]:hover {
     background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
@@ -654,7 +668,8 @@ h6 {
 .footer .copyright {
     padding-top: 25px;
     padding-bottom: 25px;
-    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    border-top: 1px solid
+        color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .footer .copyright p {
@@ -684,7 +699,8 @@ h6 {
     top: calc(50% - 30px);
     left: calc(50% - 30px);
     border: 6px solid #ffffff;
-    border-color: var(--accent-color) transparent var(--accent-color) transparent;
+    border-color: var(--accent-color) transparent var(--accent-color)
+        transparent;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -748,7 +764,11 @@ h6 {
 # Global Page Titles & Breadcrumbs
 --------------------------------------------------------------*/
 .page-title {
-    --background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+    --background-color: color-mix(
+        in srgb,
+        var(--default-color),
+        transparent 96%
+    );
     color: var(--default-color);
     background-color: var(--background-color);
     padding: 20px 0;
@@ -770,11 +790,11 @@ h6 {
     font-size: 14px;
 }
 
-.page-title .breadcrumbs ol li+li {
+.page-title .breadcrumbs ol li + li {
     padding-left: 10px;
 }
 
-.page-title .breadcrumbs ol li+li::before {
+.page-title .breadcrumbs ol li + li::before {
     content: "/";
     display: inline-block;
     padding-right: 10px;
@@ -794,7 +814,6 @@ section,
 }
 
 @media (max-width: 1199px) {
-
     section,
     .section {
         scroll-margin-top: 66px;
@@ -1526,7 +1545,7 @@ section,
     color: var(--contrast-color);
 }
 
-.team .team-member .social a+a {
+.team .team-member .social a + a {
     margin-left: 8px;
 }
 
@@ -1900,31 +1919,35 @@ section,
     }
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
+.contact .php-email-form input[type="text"],
+.contact .php-email-form input[type="email"],
 .contact .php-email-form textarea {
     font-size: 14px;
     padding: 10px 15px;
     box-shadow: none;
     border-radius: 0;
     color: var(--default-color);
-    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+    background-color: color-mix(
+        in srgb,
+        var(--background-color),
+        transparent 50%
+    );
     border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type="text"]:focus,
+.contact .php-email-form input[type="email"]:focus,
 .contact .php-email-form textarea:focus {
     border-color: var(--accent-color);
 }
 
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type="text"]::placeholder,
+.contact .php-email-form input[type="email"]::placeholder,
 .contact .php-email-form textarea::placeholder {
     color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type="submit"] {
     color: var(--contrast-color);
     background: var(--accent-color);
     border: 0;
@@ -1933,7 +1956,7 @@ section,
     border-radius: 50px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type="submit"]:hover {
     background: color-mix(in srgb, var(--accent-color), transparent 25%);
 }
 
@@ -1949,14 +1972,20 @@ section,
     position: relative;
 }
 
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
+.portfolio-details
+    .portfolio-details-slider
+    .swiper-pagination
+    .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
     background-color: color-mix(in srgb, var(--default-color), transparent 85%);
     opacity: 1;
 }
 
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
+.portfolio-details
+    .portfolio-details-slider
+    .swiper-pagination
+    .swiper-pagination-bullet-active {
     background-color: var(--accent-color);
 }
 
@@ -1971,7 +2000,8 @@ section,
     font-weight: 700;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
 .portfolio-details .portfolio-info ul {
@@ -1980,7 +2010,7 @@ section,
     font-size: 15px;
 }
 
-.portfolio-details .portfolio-info ul li+li {
+.portfolio-details .portfolio-info ul li + li {
     margin-top: 10px;
 }
 
@@ -2013,7 +2043,8 @@ section,
     display: block;
     line-height: 1;
     padding: 8px 0 8px 15px;
-    border-left: 3px solid color-mix(in srgb, var(--default-color), transparent 70%);
+    border-left: 3px solid
+        color-mix(in srgb, var(--default-color), transparent 70%);
     margin: 20px 0;
     color: color-mix(in srgb, var(--default-color), transparent 20%);
     transition: 0.3s;
@@ -2073,7 +2104,7 @@ section,
 }
 
 .bn {
-    font-family: 'Roboto',"Tiro Bangla", sans-serif !important;
+    font-family: "Tiro Bangla", "Roboto", sans-serif !important;
     font-weight: 400;
     font-style: normal;
 }
@@ -2097,7 +2128,11 @@ section,
     box-shadow: none;
     border-radius: 0;
     color: var(--default-color);
-    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+    background-color: color-mix(
+        in srgb,
+        var(--background-color),
+        transparent 50%
+    );
     border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
@@ -2106,9 +2141,7 @@ section,
     text-align: center;
 }
 
-
-.cart_table tfoot td:nth-child(2)
-.cart_table td:nth-child(3),
+.cart_table tfoot td:nth-child(2) .cart_table td:nth-child(3),
 .cart_table th:nth-child(3) {
     text-align: right;
 }
@@ -2121,13 +2154,13 @@ section,
     display: flex;
 }
 
-.product_item_parent:has(input[type="checkbox"]:checked) .btn-outline-secondary {
+.product_item_parent:has(input[type="checkbox"]:checked)
+    .btn-outline-secondary {
     color: var(--bs-btn-active-color);
     background-color: var(--bs-btn-active-bg);
     border-color: var(--bs-btn-active-border-color);
 }
 
-.max-height{
+.max-height {
     height: 600px;
 }
-

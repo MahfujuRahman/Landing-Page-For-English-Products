@@ -13,7 +13,7 @@ class globalDiscount
         discount::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'title' => 'Global50',
+            'title' => 'শীতের ডিসকাউন্ট - ৫০%',
             'discount' => 50,
             'start_datetime' => now(),
             'end_datetime' => now()->addDays(30),

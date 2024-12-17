@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend\ImageGallery;
 
-use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 use App\Models\Home\ImageGalleryTitle;
 use App\Models\Home\ImageGalleryValue;
-use Intervention\Image\ImageManager;
+use App\Http\Controllers\AdminController;
 
 class ImageGalleryController extends AdminController
 {
@@ -96,9 +97,12 @@ class ImageGalleryController extends AdminController
 
     public function edit(Request $request, $id)
     {
-        $data = ImageGalleryTitle::with('images')->findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
+        $website_id = $this->website_active_id;
+
+        $data = ImageGalleryTitle::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_id['user_website_active'])
+            ->orderBy('id')->with('images')->first();
 
         return view('Backend.pages.image_gallery.edit', compact('data', 'website'));
     }

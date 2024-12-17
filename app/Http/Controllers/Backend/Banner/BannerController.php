@@ -115,7 +115,12 @@ class BannerController extends AdminController
     public function edit(Banner $banner)
     {
         $website = $this->website;
-        // $banner = $banner->load('images');
+        $website_id = $this->website_active_id;
+
+        $banner = Banner::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_id['user_website_active'])
+            ->orderBy('id')->first();
+
         return view('Backend.pages.banner.edit', compact('banner', 'website'));
     }
 

@@ -13,7 +13,7 @@ class product
         $product = product_item::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'name' => 'Product Name',
+            'name' => 'প্রিমিয়াম পাফার জ্যাকেট',
             'price' => '1200',
             'discount_price' => '999',
             'image' => 'dummy_image/product-1.jpg',

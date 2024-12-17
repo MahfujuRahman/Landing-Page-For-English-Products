@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Product;
 
-use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use App\Models\Home\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
+use App\Http\Controllers\AdminController;
 
 class ProductController extends AdminController
 {
@@ -103,11 +104,14 @@ class ProductController extends AdminController
 
     public function edit(Request $request, $id)
     {
-        $data = Product::findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
+        $website_id = $this->website_active_id;
 
-        return view('Backend.pages.product.edit', compact('data','website'));
+        $data = Product::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_id['user_website_active'])
+            ->orderBy('id')->first();
+
+        return view('Backend.pages.product.edit', compact('data', 'website'));
     }
 
     public function update(Request $request, $id)

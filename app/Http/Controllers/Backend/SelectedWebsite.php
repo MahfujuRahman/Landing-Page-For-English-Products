@@ -28,7 +28,8 @@ class SelectedWebsite extends Controller
                 'user_website_active' => $data['website_id'],
             ]);
         }
-
-        return redirect()->back()->with('success', 'Active website updated successfully!');
+        $previousUrl = url()->previous();
+        // dd($previousUrl);
+        return redirect($previousUrl)->with('success', 'Active website updated successfully!');
     }
 }

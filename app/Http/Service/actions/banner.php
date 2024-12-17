@@ -14,12 +14,12 @@ class banner
         $banner = web_banner::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'title' => 'Banner Title',
-            'subtitle' => 'Banner Subtitle',
-            'btn_title_1' => "Button 1",
-            'btn_url_1' => url('/'),
-            'btn_title_2' => "Button 2",
-            'btn_url_2' => url('/'),
+            'title' => 'স্টাইলিশ হুডি কালেকশন',
+            'subtitle' => 'আপনার স্বাচ্ছন্দ্য আর ফ্যাশনের সেরা সমন্বয়',
+            'btn_title_1' => "অর্ডার করুন",
+            'btn_url_1' => url('/#order'),
+            'btn_title_2' => "ভিডিও দেখুন",
+            'btn_url_2' => url('https://www.youtube.com/watch?v=eno--4Iviiw'),
         ]);
 
         BannerImages::create([

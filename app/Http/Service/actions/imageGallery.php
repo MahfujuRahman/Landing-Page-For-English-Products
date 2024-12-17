@@ -14,10 +14,10 @@ class imageGallery
         $gallery_id = ImageGalleryTitle::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'title' => 'Your Gellary Title Here',
-            'subtitle' => "Your Gellary Subtitle Here",
-            'btn_title' => "Your Button Title Here",
-            'btn_url' => url('/'),
+            'title' => 'প্রোডাক্ট গ্যালারি',
+            'subtitle' => "সব ধরনের শীতের প্রোডাক্ট এখানে পাওয়া যাবে",
+            'btn_title' => "অর্ডার করুন",
+            'btn_url' => url('/#order'),
         ]);
 
         ImageGalleryValue::create([
@@ -40,5 +40,4 @@ class imageGallery
 
         return;
     }
-
 }

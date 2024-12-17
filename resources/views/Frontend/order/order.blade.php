@@ -7,7 +7,7 @@
             <!-- Section Title -->
             <div class="container section-title">
                 <h2 class="bn">
-                    Order Details
+                    অর্ডার বিবরণ
                 </h2>
             </div><!-- End Section Title -->
 
@@ -36,18 +36,19 @@
 
                                                         $d_status = $response->json();
                                                     @endphp --}}
-                                                        <h3>INVOICE</h3>
+                                                        <h3>চালান</h3>
                                                         <p>
-                                                            Order #{{ $order->slug }} <br />
-                                                            Order track : {{ $order->delivery_id ?? '' }} <br />
-                                                            Order status : {{ $d_status['delivery_status'] ?? '' }} <br />
+                                                            অর্ডার #{{ $order->slug }} <br />
+                                                            অর্ডার ট্রাক : {{ $order->delivery_id ?? '' }} <br />
+                                                            অর্ডার স্ট্যাটাস : {{ $d_status['delivery_status'] ?? '' }}
+                                                            <br />
                                                         </p>
                                                     </td>
                                                     <td colspan="2" class="text-end border-0">
-                                                        <b>Date:
+                                                        <b>তারিখ:
                                                             {{ Carbon\Carbon::parse($order->created_at)->format('d M, Y') }}</b>
                                                         <p class="bn">
-                                                            Super B - Online Ecommerce Shopping
+                                                            সুপার বি - অনলাইন ইকমার্স শপিং
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -61,16 +62,16 @@
                                                         </div>
                                                     </td>
                                                     <td colspan="2" class="text-end align-top border-0">
-                                                        <b>Payment Method:</b>
+                                                        <b>পেমেন্ট পদ্ধতি:</b>
                                                         <div>
-                                                            Cash on Delivery
+                                                            ক্যাশ অন ডেলিভারি
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Product</th>
-                                                    <th>Qty</th>
-                                                    <th>Price</th>
+                                                    <th>প্রোডাক্ট</th>
+                                                    <th>পরিমাণ</th>
+                                                    <th>দাম</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -80,11 +81,13 @@
                                                             {{ $item->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $item->qty }} *
-                                                            {{ $item->price }} ৳
+                                                            {{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($item->qty) }}
+                                                            *
+                                                            {{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($item->price) }}৳
                                                         </td>
                                                         <td>
-                                                            {{ $item->price * $item->qty }} ৳
+                                                            {{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($item->price * $item->qty) }}
+                                                            ৳
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -92,9 +95,10 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2" class="text-end">
-                                                        Subtotal
+                                                        সাবটোটাল
                                                     </td>
-                                                    <td> {{ $order->order_total }} ৳</td>
+                                                    <td> {{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($order->order_total) }}৳
+                                                    </td>
                                                 </tr>
                                                 {{-- <tr>
                                                     <td colspan="2" class="text-end">
@@ -110,15 +114,18 @@
                                                 </tr> --}}
                                                 <tr>
                                                     <td colspan="2" class="text-end">
-                                                        Shipping Charge
+                                                        শিপিং চার্জ
                                                     </td>
-                                                    <td>+ {{ $order->shipping_charge }} ৳</td>
+                                                    <td>+
+                                                        {{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($order->shipping_charge) }}
+                                                        ৳</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" class="text-end">
                                                         <b> সর্বমোট মূল্য </b>
                                                     </td>
-                                                    <td><b>{{ $order->grand_total }} ৳</b></td>
+                                                    <td><b>{{ \App\Helpers\ConvertHelper::convertToBanglaNumbers($order->grand_total) }}
+                                                            ৳</b></td>
                                                 </tr>
                                             </tfoot>
                                         </table>

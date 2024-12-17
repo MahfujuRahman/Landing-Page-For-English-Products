@@ -13,10 +13,10 @@ class video
         video_item::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'title' => 'Your Title Here',
-            'sub_title' => 'Your Subtitle Here',
-            'button_title' => 'Button Title',
-            'button_url' => url('/'),
+            'title' => 'আমাদের ভিডিও দেখুন',
+            'sub_title' => 'আমাদের প্রোডাক্ট এবং সেবা সম্পর্কে বিস্তারিত জানুন',
+            'button_title' => 'এখানে ক্লিক করুন',
+            'button_url' => url('https://www.youtube.com/watch?v=eno--4Iviiw'),
             'image' => 'dummy_image/video_background.webp',
         ]);
         return;

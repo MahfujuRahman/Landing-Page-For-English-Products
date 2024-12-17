@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Order\GlobalDiscount;
 
-use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Models\Order\GlobalDiscount;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
 
 class GlobalDiscountController extends AdminController
 {
@@ -52,9 +53,12 @@ class GlobalDiscountController extends AdminController
 
     public function edit($id)
     {
-        $globalDiscount = GlobalDiscount::findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
+        $website_id = $this->website_active_id;
+
+        $globalDiscount = GlobalDiscount::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_id['user_website_active'])
+            ->orderBy('id')->first();
 
         return view('Backend.pages.global_discount.edit', compact('globalDiscount', 'website'));
     }

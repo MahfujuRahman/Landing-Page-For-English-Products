@@ -25,7 +25,7 @@ class VideoController extends AdminController
 
     public function create()
     {
-        $authUser = auth()->user()->id;
+        $authUser = Auth::user()->id;
         $website = Website::where('user_id', $authUser)->get();
         return view('Backend.pages.video.create', compact('website'));
     }
@@ -38,7 +38,7 @@ class VideoController extends AdminController
             'sub_title' => 'nullable|string|max:255',
             'btn_title' => 'nullable|string|max:255',
             'button_url' => 'nullable|string|max:255',
-            // 'image' => 'required|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp',
         ]);
 
         DB::beginTransaction();
@@ -95,9 +95,21 @@ class VideoController extends AdminController
 
     public function edit(Request $request, $id)
     {
-        $data = Video::findOrFail($id);
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
+        $website_active_id = $this->website_active_id['user_website_active'];
+
+        $data = Video::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_active_id)
+            ->first();
+
+        if (!$data) {
+            dd([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+                "active_id" => $website_active_id
+            ]);
+        }
+
 
         return view('Backend.pages.video.edit', compact('data', 'website'));
     }
@@ -112,7 +124,7 @@ class VideoController extends AdminController
             'sub_title' => 'nullable|string|max:255',
             'btn_title' => 'nullable|string|max:255',
             'btn_url' => 'nullable|string|max:255',
-            'image' => 'required|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp',
         ]);
 
 
@@ -155,7 +167,7 @@ class VideoController extends AdminController
 
             $video->update([
                 'user_id' => $data['user_id'],
-                'website_id' => $data['website_id'],
+                // 'website_id' => $data['website_id'],
                 'title' => $data['title'],
                 'sub_title' => $data['sub_title'],
                 'button_title' => $data['btn_title'],

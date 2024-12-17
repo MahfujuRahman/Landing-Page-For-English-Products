@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Website;
 
-use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
+use App\Models\UserWebsiteActive;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Http\Controllers\AdminController;
 
 class WebsiteController extends AdminController
 {
@@ -41,6 +42,11 @@ class WebsiteController extends AdminController
             'site_url' => $data['site_url'],
             'domain_name' => $data['domain_name'],
             'status' => $data['status'],
+        ]);
+
+        UserWebsiteActive::create([
+            'user_id' => Auth::user()->id,
+            'user_website_active' => $data->id,
         ]);
 
         if (request()->is_default == 1) {

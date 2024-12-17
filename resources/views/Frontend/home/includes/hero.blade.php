@@ -1,5 +1,6 @@
 <!-- Hero Section -->
-<section id="hero" class="hero section dark-background" style="background:url('https://app-area.superb.com.bd/banner/H4ZjT1733734152.jpg');">
+<section id="hero" class="hero section dark-background"
+    style="background:url('https://app-area.superb.com.bd/banner/H4ZjT1733734152.jpg');">
     <div class="overlay">
         <div class="container">
             <div class="row gy-4">
@@ -11,20 +12,20 @@
                         <p class="bn text-light">
                             {{ $banner->subtitle ?? '' }}
                         </p>
-    
+
                         @if ($global_discount > 0)
                             <div id="timer-container" class="text-start mb-4 text-white rounded">
-                                <h2 class="mb-2">{{ $global_discount_details['title'] }}</h2>
-                                <div id="timer" class="font-monospace"></div>
+                                <h2 class="mb-2 bangla-font">{{ $global_discount_details['title'] }}</h2>
+                                <div id="timer" class="font-monospace bangla-font"></div>
                             </div>
                         @endif
-    
+
                         <div class="d-flex">
-                            <a href="#{{ $banner->btn_url_1 ?? 'order' }}" class="btn-get-started bn">
+                            <a href="{{ $banner->btn_url_1 }}" class="btn-get-started bn">
                                 {{ $banner->btn_title_1 ?? 'Order Now' }}
                             </a>
-    
-                            @if($banner?->btn_url_2)
+
+                            @if ($banner?->btn_url_2)
                                 <a href="{{ $banner->btn_url_2 ?? 'https://www.youtube.com/watch?v=BF8iCtSlPEs' }}"
                                     class="glightbox btn-watch-video d-flex align-items-center">
                                     <i class="bi bi-play-circle"></i>
@@ -34,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
                     <div id="heroSlider" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -47,13 +48,13 @@
                                 @endforeach
                             @endif
                         </div>
-    
+
                         <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-    
+
                         <button class="carousel-control-next" type="button" data-bs-target="#heroSlider"
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -92,7 +93,10 @@
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
             document.getElementById("timer").textContent =
-                `Remaining : ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                `${days.toLocaleString('bn-BD')} দিন
+                ${hours.toLocaleString('bn-BD')} ঘন্টা
+                ${minutes.toLocaleString('bn-BD')} মিনিট
+                ${seconds.toLocaleString('bn-BD')} সেকেন্ড`;
         }
 
         const timerInterval = setInterval(updateTimer, 1000);
