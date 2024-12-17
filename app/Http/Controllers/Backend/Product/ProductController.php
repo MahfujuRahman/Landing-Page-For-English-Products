@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Backend\Product;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use App\Models\Home\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = Product::orderBy('id')->get();

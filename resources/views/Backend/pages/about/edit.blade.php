@@ -79,7 +79,6 @@
                             </div>
                         </div>
 
-                        <!-- Description 1 -->
                         <div class="mb-4 position-relative" id="description_first-row">
                             <label for="description_first" class="form-label">Description Left</label>
                             <div class="d-flex justify-content-between">
@@ -89,7 +88,6 @@
                             </div>
                         </div>
 
-                        <!-- Description 2 -->
                         <div class="mb-4 position-relative" id="description_second-row">
                             <label for="description_second" class="form-label">Description Right</label>
                             <div class="d-flex justify-content-between">
@@ -107,28 +105,28 @@
                 </div>
             </div>
         </div>
-        <main>
-        @endsection
+    <main>
+@endsection
 
-        @push('scripts')
-            <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-            <script>
-                ClassicEditor
-                    .create(document.querySelector('#description_first'))
-                    .then(editor => {
-                        editor.ui.view.editable.element.style.minHeight = '200px';
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description_first'))
+            .then(editor => {
+                editor.ui.view.editable.element.style.minHeight = '200px';
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-                ClassicEditor
-                    .create(document.querySelector('#description_second'))
-                    .then(editor => {
-                        editor.ui.view.editable.element.style.minHeight = '200px';
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            </script>
-        @endpush
+        ClassicEditor
+            .create(document.querySelector('#description_second'))
+            .then(editor => {
+                editor.ui.view.editable.element.style.minHeight = '200px';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush

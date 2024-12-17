@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Website;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
-class WebsiteController extends Controller
+class WebsiteController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = Website::orderBy('id')->get();
@@ -39,7 +43,7 @@ class WebsiteController extends Controller
             'status' => $data['status'],
         ]);
 
-        if(request()->is_default == 1){
+        if (request()->is_default == 1) {
             Website::where('is_default', 1)->update(["is_default" => 0]);
             $data->update([
                 "is_default" => 1,
@@ -73,7 +77,7 @@ class WebsiteController extends Controller
             'status' => $data['status'],
         ]);
 
-        if(request()->is_default == 1){
+        if (request()->is_default == 1) {
             Website::where('is_default', 1)->update(["is_default" => 0]);
             $website->update([
                 "is_default" => 1,

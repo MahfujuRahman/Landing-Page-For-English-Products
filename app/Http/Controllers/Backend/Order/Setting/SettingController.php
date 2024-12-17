@@ -17,75 +17,28 @@ class SettingController extends AdminController
 
     public function index()
     {
-        $data = Setting::select('id','title','value')->get();
-        $details = Setting::first();
+
+        $website_id = $this->website_active_id;
+        $data = Setting::select('id', 'title', 'value')->get();
+        $details = Setting::where('website_id', $website_id['user_website_active'])->first();
 
         $website = $this->website;
 
-
-        return view('Backend.pages.setting.index', compact('data','details', 'website'));
+        return view('Backend.pages.setting.index', compact('data', 'details', 'website'));
     }
-
-    // public function create()
-    // {
-    //     return view('Backend.pages.setting.create');
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $data = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'value' => 'required|numeric|min:0',
-    //     ]);
-
-    //     Setting::create([
-    //         'title' => $data['title'],
-    //         'value' => $data['value'],
-    //     ]);
-
-    //     return redirect()->route('setting.index')->with('success', 'Setting added successfully!');
-    // }
-
-    // public function edit($id)
-    // {
-    //     $setting = Setting::findOrFail($id);
-    //     return view('Backend.pages.setting.edit', compact('setting'));
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $setting = Setting::findOrFail($id);
-
-    //     $data = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'value' => 'required|numeric|min:0',
-    //     ]);
-
-    //     $setting->update([
-    //         'title' => $data['title'],
-    //         'value' => $data['value'],
-    //     ]);
-
-    //     return redirect()->route('setting.index')->with('success', 'Setting updated successfully!');
-    // }
-
-    // public function destroy($id)
-    // {
-    //     $setting = Setting::findOrFail($id);
-    //     $setting->delete();
-
-    //     return redirect()->route('setting.index')->with('success', 'Setting deleted successfully!');
-    // }
 
     public function fetchData($slug)
     {
+
+        $website_id = $this->website_active_id;
         $details = Setting::where('id', $slug)->first();
-        $data = Setting::select('id','title','value')->get();
+        dd($details);
 
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $data = $details->where('user_id', Auth::user()->id)->where('website_id', $website_id['user_website_active'])->select('id', 'title', 'value')->get();
 
-        return view('Backend.pages.setting.index', compact('data','details', 'website'));
+        $website = $this->website;
+
+        return view('Backend.pages.setting.index', compact('data', 'details', 'website'));
     }
 
     public function postData(Request $request, $slug)
@@ -99,7 +52,7 @@ class SettingController extends AdminController
 
         Setting::where('id', $slug)->update([
             'user_id' => Auth::user()->id,
-            'website_id' => $request->input('website_id') ,
+            'website_id' => $request->input('website_id'),
             'title' => $request->input('title'),
             'value' => $request->input('value'),
         ]);

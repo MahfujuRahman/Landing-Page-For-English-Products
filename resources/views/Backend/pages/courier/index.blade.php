@@ -33,62 +33,62 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('courier.store') }}" method="POST">
-                        @csrf
+                    <form method="POST" action="{{ route('courier.store') }}">
+                        @csrf <!-- Add CSRF token for security -->
 
+                        <!-- Website Selection -->
                         <div class="mb-4 position-relative">
                             <label for="website_id" class="form-label">Website Name</label>
                             <select class="form-control" id="website_id" name="website_id" required>
                                 <option value="" disabled {{ !isset($data) ? 'selected' : '' }}>Select website
                                 </option>
-                                @foreach ($website as $item)
+                                @foreach ($navbarData as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ (old('website_id') ?? (session('selectedWebsiteId') ?? ($data->website_id ?? ''))) == $item->id ? 'selected' : '' }}>
+                                        {{ old('website_id', $website_active_id->user_website_active) == $item->id ? 'selected' : '' }}>
                                         {{ $item->site_name }} - {{ $item->site_url }}.{{ $item->domain_name }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
+                        <!-- Courier Name Input -->
                         <div class="mb-4">
                             <label for="courier_name" class="form-label">Courier Name</label>
                             <input type="text" class="form-control" id="courier_name" name="courier_name"
-                                value="{{ old('courier_name') ?? ($data->courier_name ?? '') }}"
+                                value="{{ old('courier_name', $data->courier_name ?? '') }}"
                                 placeholder="Enter Courier Name" required>
                         </div>
 
+                        <!-- App Key Input -->
                         <div class="mb-4">
                             <label for="app_key" class="form-label">App Key</label>
                             <input type="text" class="form-control" id="app_key" name="app_key"
-                                value="{{ old('app_key') ?? ($data->app_key ?? '') }}" placeholder="Enter App Key"
-                                required>
+                                value="{{ old('app_key', $data->app_key ?? '') }}" placeholder="Enter App Key" required>
                         </div>
 
+                        <!-- App Secret Input -->
                         <div class="mb-4">
                             <label for="app_secret" class="form-label">App Secret</label>
                             <input type="text" class="form-control" id="app_secret" name="app_secret"
-                                value="{{ old('app_secret') ?? ($data->app_secret ?? '') }}" placeholder="Enter App Secret"
+                                value="{{ old('app_secret', $data->app_secret ?? '') }}" placeholder="Enter App Secret"
                                 required>
                         </div>
 
+                        <!-- Status Dropdown -->
                         <div class="mb-4">
                             <label for="is_active" class="form-label">Status</label>
                             <select class="form-control" id="is_active" name="is_active" required>
                                 <option value="1"
-                                    {{ (old('is_active') ?? ($data->is_active ?? '')) == 1 ? 'selected' : '' }}>
-                                    Active
-                                </option>
+                                    {{ old('is_active', $data->is_active ?? '') == 1 ? 'selected' : '' }}>Active</option>
                                 <option value="0"
-                                    {{ (old('is_active') ?? ($data->is_active ?? '')) == 0 ? 'selected' : '' }}>
-                                    Inactive
+                                    {{ old('is_active', $data->is_active ?? '') == 0 ? 'selected' : '' }}>Inactive
                                 </option>
                             </select>
                         </div>
 
-                        <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-primary px-4">
-                                {{ isset($data) ? 'Update Courier' : 'Save Courier' }}
-                            </button>
+                        <!-- Submit Button -->
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
 

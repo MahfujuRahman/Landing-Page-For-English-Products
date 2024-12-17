@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('setting/{slug}', [SettingController::class, 'fetchData'])->name('setting.fetch');
     Route::post('setting/{slug}', [SettingController::class, 'postData'])->name('setting.update');
 
-    Route::get('/set-selected-site/{website_id}', [SelectedWebsite::class, 'storeSelectedWebsite'])->name('set.selectedSite');
+    Route::post('/set-selected-site', [SelectedWebsite::class, 'storeSelectedWebsite'])->name('selectedSite');
 });
 
 //Frontend

@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Backend\Order\Coupon;
 
+use App\Http\Controllers\AdminController;
 use auth;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Models\Order\Coupons;
-use App\Http\Controllers\Controller;
 
-class CouponController extends Controller
+class CouponController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = Coupons::orderBy('id')->get();

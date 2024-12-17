@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Backend\ImageGallery;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Models\Home\ImageGalleryTitle;
 use App\Models\Home\ImageGalleryValue;
 use Intervention\Image\ImageManager;
 
-class ImageGalleryController extends Controller
+class ImageGalleryController extends AdminController
 {
     public function index()
     {
@@ -59,7 +59,7 @@ class ImageGalleryController extends Controller
                     $filenameWithExtension = $this->generateUniqueFileName($image);
                     $filenameWithWebP = pathinfo($filenameWithExtension, PATHINFO_FILENAME) . '.webp';
                     $manager = new ImageManager(['driver' => 'gd']);
-                    
+
                     $resizedImage = $manager->make($image->getRealPath())->resize(400, 400, function ($constraint) {
                         $constraint->aspectRatio();
                     });

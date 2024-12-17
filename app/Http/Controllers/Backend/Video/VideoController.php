@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Backend\Video;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use App\Models\Home\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 
-class VideoController extends Controller
+class VideoController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $videos = Video::get();

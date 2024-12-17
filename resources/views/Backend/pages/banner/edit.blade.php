@@ -33,7 +33,7 @@
                         <input type="text" hidden name="user_id" value="{{ Auth::user()->id }}">
 
                         <!-- Site Name -->
-                        {{-- <div class="mb-4 position-relative" id="title-row">
+                        <div class="mb-4 position-relative" id="title-row">
                             <label for="title" class="form-label">Website Name</label>
                             <div class="d-flex justify-content-between">
                                 <div class="col-md-12">
@@ -48,37 +48,19 @@
                                     </select>
                                 </div>
                             </div>
-                        </div> --}}
-
-                        <div class="mb-4 position-relative">
-                            <label for="website_id" class="form-label">Website Name</label>
-                            <select class="form-control" id="website_id" name="website_id" required>
-                                <option value="" disabled {{ !isset($data) ? 'selected' : '' }}>Select website
-                                </option>
-                                @foreach ($website as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ (old('website_id') ?? (session('selectedWebsiteId') ?? ($data->website_id ?? ''))) == $item->id ? 'selected' : '' }}>
-                                        {{ $item->site_name }} - {{ $item->site_url }}.{{ $item->domain_name }}
-                                    </option>
-                                @endforeach
-                            </select>
                         </div>
 
-                        <!-- Title -->
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" name="title"
                                 value="{{ $banner->title }}" required>
                         </div>
 
-                        <!-- Subtitle -->
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Subtitle</label>
                             <input type="text" class="form-control" id="subtitle" name="subtitle"
                                 value="{{ $banner->subtitle }}">
                         </div>
-
-                        <!-- Button Titles and URLs -->
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -95,7 +77,6 @@
                                     <input type="text" class="form-control" id="btn_url_1" name="btn_url_1"
                                         value="{{ $banner->btn_url_1 }}">
                                 </div>
-
                             </div>
                         </div>
 
@@ -108,7 +89,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-
                                 <div class="mb-3">
                                     <label for="btn_url_2" class="form-label">Button URL 2</label>
                                     <input type="text" class="form-control" id="btn_url_2" name="btn_url_2"
@@ -117,7 +97,6 @@
                             </div>
                         </div>
 
-                        <!-- Existing Images -->
                         <div class="mb-3">
                             <label class="form-label">Existing Images</label>
                             <div class="row">
@@ -130,8 +109,9 @@
                                                 <button type="button" class="btn btn-danger btn-sm remove-image"
                                                     data-image-id="{{ $image->id }}">Remove Image</button>
                                                 <!-- Hidden checkbox to mark the image for deletion -->
-                                                <input type="checkbox" name="deleted_images[]" value="{{ $image->id }}"
-                                                    class="deleted-image-checkbox" style="display: none;">
+                                                <input type="checkbox" name="deleted_images[]"
+                                                    value="{{ $image->id }}" class="deleted-image-checkbox"
+                                                    style="display: none;">
                                             </div>
                                         </div>
                                     </div>

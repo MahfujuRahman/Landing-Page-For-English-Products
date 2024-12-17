@@ -14,6 +14,10 @@ use Intervention\Image\ImageManager;
 
 class BannerController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $banners = Banner::with('images')->orderBy('id')->get();
@@ -22,8 +26,9 @@ class BannerController extends AdminController
 
     public function create()
     {
+        $website_active_id = $this->website_active_id;
         $website = $this->website;
-        return view('Backend.pages.banner.create', compact('website'));
+        return view('Backend.pages.banner.create', compact('website', 'website_active_id'));
     }
 
     public function store(Request $request)

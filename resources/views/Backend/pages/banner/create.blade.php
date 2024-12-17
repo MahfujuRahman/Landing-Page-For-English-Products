@@ -30,9 +30,6 @@
                         @csrf
 
                         <input type="text" hidden name="user_id" value="{{ Auth::user()->id }}">
-
-                        <!-- Site Name -->
-
                         <div class="mb-4 position-relative">
                             <label for="website_id" class="form-label">Website Name</label>
                             <select class="form-control" id="website_id" name="website_id" required>
@@ -40,15 +37,13 @@
                                 </option>
                                 @foreach ($website as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ (old('website_id') ?? (session('selectedWebsiteId') ?? ($data->website_id ?? ''))) == $item->id ? 'selected' : '' }}>
+                                        {{ old('website_id', $website_active_id->user_website_active) == $item->id ? 'selected' : '' }}>
                                         {{ $item->site_name }} - {{ $item->site_url }}.{{ $item->domain_name }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
-
-                        <!-- Title -->
                         <div class="mb-4 position-relative" id="title-row">
                             <label for="title" class="form-label">Title</label>
                             <div class="d-flex justify-content-between">
@@ -59,7 +54,6 @@
                             </div>
                         </div>
 
-                        <!-- Subtitle -->
                         <div class="mb-4 position-relative" id="subtitle-row">
                             <label for="subtitle" class="form-label">Subtitle</label>
                             <div class="d-flex justify-content-between">
@@ -70,10 +64,8 @@
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="col-lg-6">
-                                <!-- btn_title_1 -->
                                 <div class="mb-4 position-relative" id="btn_title_1-row">
                                     <label for="btn_title_1" class="form-label">Button 1 Title</label>
                                     <div class="d-flex justify-content-between">
@@ -86,7 +78,6 @@
 
                             </div>
                             <div class="col-lg-6">
-                                <!-- btn_url_1 -->
                                 <div class="mb-4 position-relative" id="btn_url_1-row">
                                     <label for="btn_url_1" class="form-label">Button Url 1</label>
                                     <div class="d-flex justify-content-between">
@@ -101,7 +92,6 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <!-- btn_title_12 -->
                                 <div class="mb-4 position-relative" id="btn_title_2-row">
                                     <label for="btn_title_2" class="form-label">Button 2 Title</label>
                                     <div class="d-flex justify-content-between">
@@ -113,7 +103,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <!-- btn_url_2 -->
                                 <div class="mb-4 position-relative" id="btn_url_1-row">
                                     <label for="btn_url_2" class="form-label">Button Url 2</label>
                                     <div class="d-flex justify-content-between">
@@ -126,7 +115,6 @@
                             </div>
                         </div>
 
-                        <!-- Images -->
                         <div class="mb-4" id="image-row">
                             <label for="images" class="form-label">Images</label>
                             <div id="image-container" class="row">

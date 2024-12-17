@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('order_visitors', function (Blueprint $table) {
             $table->id();
             $table->text('ip');
-            $table->dateTime('date');
+            $table->dateTime('date')->nullable();
             $table->bigInteger('count')->default(1);
             $table->bigInteger('buy')->default(0);
             $table->float('lat')->unsigned()->nullable();

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Backend\About;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use App\Models\Home\About;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class AboutController extends Controller
+class AboutController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = About::orderBy('id')->get();

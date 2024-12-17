@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Backend\Order\GlobalDiscount;
 
+use App\Http\Controllers\AdminController;
 use App\Models\Website;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Order\GlobalDiscount;
 
-class GlobalDiscountController extends Controller
+class GlobalDiscountController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = GlobalDiscount::orderBy('id')->get();

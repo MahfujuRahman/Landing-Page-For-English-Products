@@ -7,22 +7,21 @@
             </li>
             <li class="nav-item d-none d-md-block"> <a href="{{ route('admin.dashboard') }}"
                     class="nav-link">Dashboard</a> </li>
+
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Website List
-                </a>
-
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach ($navbarData as $site)
-                        <li>
-                            <a class="dropdown-item"
-                                href="{{ route('set.selectedSite', ['website_id' => $site->id]) }}">{{ $site->site_name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
+                <form action="{{ route('selectedSite') }}" method="post" id="website_active_from">
+                    @csrf
+                    <select name="website_id" class="form-control" id=""
+                        onchange="website_active_from.submit()">
+                        @foreach ($navbarData as $site)
+                            <option value="{{ $site->id }}"
+                                {{ $site->id == $website_active_id->user_website_active ? 'selected' : '' }}>
+                                {{ $site->site_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
             </li>
-
         </ul>
 
         <ul class="navbar-nav ms-auto">

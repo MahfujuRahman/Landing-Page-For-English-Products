@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Backend\Order\Order;
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Models\Order\OrderSheet;
-use App\Http\Controllers\Controller;
 
-class OrderController extends Controller
+class OrderController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     public function index()
     {
         $data = OrderSheet::orderBy('id')->get();

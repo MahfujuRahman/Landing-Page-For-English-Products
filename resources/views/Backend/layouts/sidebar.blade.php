@@ -101,6 +101,5 @@
                 $(this).toggleClass('active', $(this).attr('href') == window.location.pathname);
             });
         });
-        document.querySelector(`a[href="${location.href}"]`).classList.add('active')
     </script>
 @endpush

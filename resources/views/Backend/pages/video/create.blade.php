@@ -31,7 +31,6 @@
 
                         <input type="text" hidden name="user_id" value="{{ Auth::user()->id }}">
 
-                        <!-- Site Name -->
                         <div class="mb-4 position-relative">
                             <label for="website_id" class="form-label">Website Name</label>
                             <select class="form-control" id="website_id" name="website_id" required>
@@ -39,14 +38,13 @@
                                 </option>
                                 @foreach ($website as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ (old('website_id') ?? (session('selectedWebsiteId') ?? ($data->website_id ?? ''))) == $item->id ? 'selected' : '' }}>
+                                        {{ old('website_id', $website_active_id->user_website_active) == $item->id ? 'selected' : '' }}>
                                         {{ $item->site_name }} - {{ $item->site_url }}.{{ $item->domain_name }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <!-- Title -->
                         <div class="mb-4 position-relative" id="title-row">
                             <label for="title" class="form-label">Title</label>
                             <div class="d-flex justify-content-between">
@@ -57,7 +55,6 @@
                             </div>
                         </div>
 
-                        <!-- Subtitle -->
                         <div class="mb-4 position-relative" id="subtitle-row">
                             <label for="sub_title" class="form-label">Subtitle</label>
                             <div class="d-flex justify-content-between">
@@ -68,7 +65,6 @@
                             </div>
                         </div>
 
-                        <!-- btn_title_1 -->
                         <div class="mb-4 position-relative" id="btn_title-row">
                             <label for="btn_title" class="form-label">Button Title</label>
                             <div class="d-flex justify-content-between">
@@ -79,7 +75,6 @@
                             </div>
                         </div>
 
-                        <!-- btn_url_1 -->
                         <div class="mb-4 position-relative" id="btn_url-row">
                             <label for="button_url" class="form-label">Button Url</label>
                             <div class="d-flex justify-content-between">

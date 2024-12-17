@@ -39,7 +39,7 @@
                                 </option>
                                 @foreach ($website as $item)
                                     <option value="{{ $item->id }}"
-                                        {{ (old('website_id') ?? (session('selectedWebsiteId') ?? ($data->website_id ?? ''))) == $item->id ? 'selected' : '' }}>
+                                        {{ old('website_id', $website_active_id->user_website_active) == $item->id ? 'selected' : '' }}>
                                         {{ $item->site_name }} - {{ $item->site_url }}.{{ $item->domain_name }}
                                     </option>
                                 @endforeach
