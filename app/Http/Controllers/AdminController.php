@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Website;
-use App\Models\WebsiteActive;
+use App\Models\UserWebsiteActive;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -44,7 +44,8 @@ class AdminController extends BaseController
     {
         $user = Auth::user()->id;
 
-        $active_website = WebsiteActive::where("user_id", $user)->select('id', 'user_website_active', 'user_id')->first();
+        $active_website = UserWebsiteActive::where("user_id", $user)
+        ->select('id', 'user_website_active', 'user_id')->first() ?? null;
 
         view()->share('website_active_id', $active_website);
 

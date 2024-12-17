@@ -15,7 +15,7 @@
                         onchange="website_active_from.submit()">
                         @foreach ($navbarData as $site)
                             <option value="{{ $site->id }}"
-                                {{ $site->id == $website_active_id->user_website_active ? 'selected' : '' }}>
+                                {{ $site->id == $website_active_id?->user_website_active ? 'selected' : '' }}>
                                 {{ $site->site_name }}
                             </option>
                         @endforeach

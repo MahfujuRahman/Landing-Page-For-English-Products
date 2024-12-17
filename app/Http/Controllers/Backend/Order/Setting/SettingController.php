@@ -19,7 +19,10 @@ class SettingController extends AdminController
     {
 
         $website_id = $this->website_active_id;
-        $data = Setting::select('id', 'title', 'value')->get();
+        $data = Setting::where('user_id', Auth::user()->id)
+            ->where('website_id', $website_id['user_website_active'])
+            ->select('id', 'title', 'value')->get();
+
         $details = Setting::where('website_id', $website_id['user_website_active'])->first();
 
         $website = $this->website;
@@ -31,8 +34,8 @@ class SettingController extends AdminController
     {
 
         $website_id = $this->website_active_id;
-        $details = Setting::where('id', $slug)->first();
-        dd($details);
+        $details = Setting::where('id', $slug)
+            ->first();
 
         $data = $details->where('user_id', Auth::user()->id)->where('website_id', $website_id['user_website_active'])->select('id', 'title', 'value')->get();
 

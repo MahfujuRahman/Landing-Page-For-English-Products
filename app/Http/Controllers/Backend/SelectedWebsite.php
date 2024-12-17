@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use App\Models\WebsiteActive;
+use App\Models\UserWebsiteActive;
 use App\Http\Controllers\Controller;
-use App\Models\Website;
 use Illuminate\Support\Facades\Auth;
 
 class SelectedWebsite extends Controller
@@ -17,14 +16,14 @@ class SelectedWebsite extends Controller
         ]);
 
         $user = Auth::user()->id;
-        $website = WebsiteActive::where('user_id', $user)->first();
+        $website = UserWebsiteActive::where('user_id', $user)->first();
 
         if ($website) {
             $website->update([
                 'user_website_active' => $data['website_id'],
             ]);
         } else {
-            WebsiteActive::create([
+            UserWebsiteActive::create([
                 'user_id' => $user,
                 'user_website_active' => $data['website_id'],
             ]);

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_website_actives', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('website_id')->unsigned()->nullable();
+            $table->id();   
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('user_website_active')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_actives');
+        Schema::dropIfExists('user_website_actives');
     }
 };
