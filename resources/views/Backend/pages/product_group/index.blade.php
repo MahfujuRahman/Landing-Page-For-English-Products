@@ -10,61 +10,54 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Product's</h2>
-                <a href="{{ route('product.create') }}" class="btn btn-primary">Add Product</a>
+                <h2>Product Groups</h2>
+                <a href="{{ route('product-group.create') }}" class="btn btn-primary">Add Product Group</a>
             </div>
 
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Product List</h5>
+                    <h5 class="mb-0">Product Group List</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover text-center">
                         <thead class="table-dark">
                             <tr>
                                 <th>#</th>
-                                <th>Group Name</th>
+                                <th>Website Name</th>
+                                <th>Website Link</th>
                                 <th>Name</th>
-                                <th>Price</th>
-                                <th>Discount Price</th>
-                                <th>Images</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             @forelse ($data as $index => $item)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->productGroup->name }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->price ?? '-' }}</td>
-                                    <td>{{ $item->discount_price ?? '-' }}</td>
+                                    <td>{{ $item->website->site_name }}</td>
                                     <td>
-                                        <div class="d-flex justify-content-center">
-                                            <img src="{{ asset($item->image) }}" alt="Banner Image" class="rounded me-2"
-                                                style="width: 50px; height: 50px; object-fit: cover;">
-
-                                        </div>
+                                        <a href="{{ url($item->website->site_url) }}" target="_blank">
+                                            {{ url($item->website->site_url) }}
+                                        </a>
                                     </td>
+                                    <td>{{ $item->name }}</td>
                                     <td>
-                                        <a href="{{ route('product.edit', $item->id) }}"
+                                        <a href="{{ route('product-group.edit', $item->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('product.destroy', $item->id) }}" method="POST"
+                                        <form action="{{ route('product-group.destroy', $item->id) }}" method="POST"
                                             class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Are you sure you want to delete this global discount?')">Delete</button>
                                         </form>
-
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-muted">No Products available. Click "Add product" to
-                                        create
-                                        one.</td>
+                                    <td colspan="3" class="text-muted">No global discount available. Click "Add Discount"
+                                        to create one.</td>
                                 </tr>
                             @endforelse
                         </tbody>

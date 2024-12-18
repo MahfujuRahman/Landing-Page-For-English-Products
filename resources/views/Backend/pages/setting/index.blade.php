@@ -59,11 +59,19 @@
                                     <input type="text" name="title" id="title-{{ $details->id }}"
                                         class="form-control" value="{{ $details->title }}" placeholder="Enter title">
                                 </div>
-                                <div class="mb-3">
+
+                                @if ($details->type == 'text')
+                                    <div class="mb-3">
+                                        <label for="value-{{ $details->id }}" class="form-label">Value</label>
+                                        <textarea class="form-control ck-editor" id="value-{{ $details->id }}" name="value"
+                                            placeholder="Enter Setting value" required>{{ $details->value }}</textarea>
+                                    </div>
+                                @elseif ($details->type == 'number')
                                     <label for="value-{{ $details->id }}" class="form-label">Value</label>
-                                    <textarea class="form-control ck-editor" id="value-{{ $details->id }}" name="value"
-                                        placeholder="Enter Setting value" required>{{ $details->value }}</textarea>
-                                </div>
+                                    <input class="form-control mb-3" id="value-{{ $details->id }}" name="value"
+                                        placeholder="Enter Setting value" required value="{{ $details->value }}" />
+                                @endif
+
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>
                         </div>

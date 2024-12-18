@@ -34,16 +34,28 @@
 
                         @include('Backend.includes.website_create')
 
+                        <div class="mb-4 position-relative">
+                            <label for="group_id" class="form-label">Group Name</label>
+                            <select class="form-control" id="group_id" name="group_id" required>
+                                <option value="" disabled {{ !isset($data) ? 'selected' : '' }}>Select Group Name
+                                </option>
+                                @foreach ($product_group as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ old('group_id') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="mb-4 position-relative" id="name-row">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Banner Name</label>
                             <div class="d-flex justify-content-between">
                                 <div class="col-md-12">
                                     <input type="text" class="form-control" id="name" name="name"
                                         placeholder="Enter banner name" required>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                         </div>
 
                         <div class="mb-4 position-relative" id="price-row">
@@ -54,8 +66,6 @@
                                         placeholder="Enter price">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                         </div>
 
                         <div class="mb-4 position-relative" id="discount_price-row">
@@ -66,17 +76,14 @@
                                         placeholder="Enter discount price">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-danger btn-sm mt-2 remove-row"
-                                style="position: absolute; top: 0; right: 0; display: none;">Remove</button>
                         </div>
-
 
                         <!-- Images -->
                         <div class="mb-4" id="image-row">
                             <label for="image" class="form-label">Image</label>
                             <div id="image-container" class="row">
                                 <div class="col-md-9">
-                                    <input type="file" class="form-control" name="image">
+                                    <input type="file" class="form-control" name="image" required>
                                 </div>
                                 <div class="col-md-12 pt-4 image-preview-container">
                                     <!-- Image preview will be here -->

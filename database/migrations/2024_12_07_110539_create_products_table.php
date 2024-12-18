@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger(column: 'user_id')->nullable();
             $table->unsignedBigInteger(column: 'website_id')->nullable();
+            $table->bigInteger('product_group_id')->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->float('price')->nullable();
             $table->float('discount_price')->nullable();
+            $table->integer('present_stock')->default(0);
+            $table->integer('total_sold')->default(0);
+            $table->integer('total_purchase')->default(0);
             $table->string('image')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

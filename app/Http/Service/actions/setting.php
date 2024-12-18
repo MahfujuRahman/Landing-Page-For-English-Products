@@ -14,10 +14,12 @@ class setting
             [
                 'title' => 'inside Dhaka',
                 'value' => 50,
+                'type' => 'number',
             ],
             [
                 'title' => 'outside Dhaka',
                 'value' => 90,
+                'type' => 'number',
             ],
             [
                 'title' => 'emergency contact',

@@ -45,9 +45,25 @@
                             </select>
                         </div>
 
+                        <div class="mb-4 position-relative">
+                            <label for="group_id" class="form-label">Group Name</label>
+                            <select class="form-control" id="group_id" name="group_id" required>
+                                <option value="" disabled
+                                    {{ old('group_id', $data->product_group_id) ? '' : 'selected' }}>
+                                    Select Group Name
+                                </option>
+                                @foreach ($product_group as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ old('group_id', $data->product_group_id) == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <!-- Title -->
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Banner Name</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 value="{{ $data->name }}" required>
                         </div>

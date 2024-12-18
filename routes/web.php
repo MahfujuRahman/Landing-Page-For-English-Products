@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\Order\Setting\SettingController;
 use App\Http\Controllers\Backend\ImageGallery\ImageGalleryController;
 use App\Http\Controllers\Backend\Order\Courier\CourierInfoController;
 use App\Http\Controllers\Backend\Order\SaveOrder\SaveOrderController;
+use App\Http\Controllers\Backend\ProductGroup\ProductGroupController;
 use App\Http\Controllers\Backend\Order\SmsGateWay\SmsGatewayController;
 use App\Http\Controllers\Backend\Order\GlobalDiscount\GlobalDiscountController;
 
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('sms-gateway', SmsGatewayController::class);
     Route::resource('courier', CourierInfoController::class);
     Route::resource('website', WebsiteController::class);
+    Route::resource('product-group', ProductGroupController::class);
 
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('setting/{slug}', [SettingController::class, 'fetchData'])->name('setting.fetch');

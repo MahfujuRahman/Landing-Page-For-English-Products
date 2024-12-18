@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Product;
 
 use App\Models\Website;
 use App\Models\Home\Product;
+use App\Models\ProductGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,16 +20,17 @@ class ProductController extends AdminController
     }
     public function index()
     {
-        $data = Product::orderBy('id')->get();
+        $data = Product::with('productGroup')->orderBy('id')->get();
         return view('Backend.pages.product.index', compact('data'));
     }
 
     public function create()
     {
-        $authUser = auth()->user()->id;
-        $website = Website::where('user_id', $authUser)->get();
+        $website = $this->website;
+        $product_group = ProductGroup::where('website_id', $this->website_active_id['user_website_active'])
+            ->get();
 
-        return view('Backend.pages.product.create', compact('website'));
+        return view('Backend.pages.product.create', compact('website', 'product_group'));
     }
 
     public function store(Request $request)
@@ -37,9 +39,10 @@ class ProductController extends AdminController
             'user_id' => 'required|integer|exists:users,id',
             'website_id' => 'required|integer|exists:websites,id',
             'name' => 'required|string|max:255',
+            'group_id' => 'required|numeric|exists:product_groups,id',
             'price' => 'nullable|numeric',
             'discount_price' => 'nullable|numeric',
-            'image' => 'required|mimes:jpeg,png,jpg,webp',
+            'image' => 'nullable|mimes:jpeg,png,jpg,webp',
         ]);
 
         DB::beginTransaction();
@@ -75,6 +78,7 @@ class ProductController extends AdminController
                 'user_id' => $data['user_id'],
                 'website_id' => $data['website_id'],
                 'name' => $data['name'],
+                'product_group_id' => $data['group_id'],
                 'price' => $data['price'],
                 'discount_price' => $data['discount_price'],
                 'image' => $image_path,
@@ -107,11 +111,14 @@ class ProductController extends AdminController
         $website = $this->website;
         $website_id = $this->website_active_id;
 
+        $product_group = ProductGroup::where('website_id', $this->website_active_id['user_website_active'])
+            ->get();
+
         $data = Product::where('user_id', Auth::user()->id)
             ->where('website_id', $website_id['user_website_active'])
             ->orderBy('id')->first();
 
-        return view('Backend.pages.product.edit', compact('data', 'website'));
+        return view('Backend.pages.product.edit', compact('data', 'website', 'product_group'));
     }
 
     public function update(Request $request, $id)
@@ -120,6 +127,7 @@ class ProductController extends AdminController
         $data = $request->validate([
             'website_id' => 'required|integer|exists:websites,id',
             'name' => 'required|string|max:255',
+            'group_id' => 'required|numeric|exists:product_groups,id',
             'price' => 'nullable|numeric',
             'discount_price' => 'nullable|numeric',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:8192',
@@ -161,10 +169,11 @@ class ProductController extends AdminController
             }
 
             $product->update([
-                'user_id' => auth()->user()->id,
+                'user_id' => Auth::user()->id,
                 'website_id' => $data['website_id'],
                 'name' => $data['name'],
                 'price' => $data['price'],
+                'product_group_id' => $data['group_id'],
                 'discount_price' => $data['discount_price'],
                 'image' => $image_path,
             ]);

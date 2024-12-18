@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('product_groups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger(column: 'user_id')->nullable();
             $table->unsignedBigInteger(column: 'website_id')->nullable();
-            $table->string('title', 255);
-            $table->text('value');
-            $table->string('type', 20)->default('text');
+            $table->string('name')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('product_groups');
     }
 };
