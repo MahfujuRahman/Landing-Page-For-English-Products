@@ -219,4 +219,58 @@ class ProductController extends AdminController
             return redirect()->route('product.index')->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
+
+    public function stock($id)
+    {
+        $data = Product::findOrFail($id)->orderBy('id')->first();
+        return view('Backend.pages.product.stock', compact('data'));
+    }
+
+    public function stock_update(Request $request, $id)
+    {
+
+        $data = $request->validate([
+            'total_purchase' => 'required|numeric',
+            'type' => 'required|string',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $product = Product::findOrFail($id);
+
+            if ($data['type'] === 'sale') {
+                if ($product->present_stock < $data['total_purchase']) {
+                    return back()->with('error', 'Not enough stock to sell!');
+                }
+
+                $product->update([
+                    'total_sold' => $product->total_sold + $data['total_purchase'],
+                    'present_stock' => $product->present_stock - $data['total_purchase'],
+                ]);
+            }
+
+            if ($data['type'] === 'purchase') {
+                $product->update([
+                    'total_purchase' => $product->total_purchase + $data['total_purchase'],
+                    'present_stock' => $product->present_stock + $data['total_purchase'],
+                ]);
+            }
+
+            if ($data['type'] === 'return') {
+                $product->update([
+                    'total_sold' => $product->total_sold - $data['total_purchase'],
+                    'present_stock' => $product->present_stock + $data['total_purchase'],
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('product.index')->with('success', 'Product stock updated successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
+    }
 }

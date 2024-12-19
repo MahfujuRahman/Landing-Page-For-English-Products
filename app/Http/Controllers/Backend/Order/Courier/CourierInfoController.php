@@ -20,7 +20,9 @@ class CourierInfoController extends AdminController
     {
         $user = Auth::user()->id;
         $website_id = $this->website_active_id;
-        $data = CourierInfo::where('user_id', $user)->where('website_id', $website_id['user_website_active'])->orderBy('id')->first();
+        $data = CourierInfo::where('user_id', $user)
+            ->where('website_id', $website_id['user_website_active'] ?? 0)
+            ->orderBy('id')->first();
         return view('Backend.pages.courier.index', compact('data'));
     }
 

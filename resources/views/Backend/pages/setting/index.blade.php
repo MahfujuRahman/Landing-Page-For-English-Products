@@ -66,9 +66,13 @@
                                         <textarea class="form-control ck-editor" id="value-{{ $details->id }}" name="value"
                                             placeholder="Enter Setting value" required>{{ $details->value }}</textarea>
                                     </div>
-                                @elseif ($details->type == 'number')
+                                @elseif ($details->type == 'number' || $details->type == 'string')
                                     <label for="value-{{ $details->id }}" class="form-label">Value</label>
                                     <input class="form-control mb-3" id="value-{{ $details->id }}" name="value"
+                                        placeholder="Enter Setting value" required value="{{ $details->value }}" />
+                                @elseif ($details->type == 'file')
+                                    <label for="value-{{ $details->id }}" class="form-label">Value</label>
+                                    <input type="file" class="form-control mb-3" id="value-{{ $details->id }}" name="value"
                                         placeholder="Enter Setting value" required value="{{ $details->value }}" />
                                 @endif
 

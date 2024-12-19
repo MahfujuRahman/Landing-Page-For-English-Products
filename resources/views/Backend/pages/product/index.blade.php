@@ -28,6 +28,8 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Discount Price</th>
+                                <th>Available Stocks</th>
+                                <th>Sold Stocks</th>
                                 <th>Images</th>
                                 <th>Actions</th>
                             </tr>
@@ -41,6 +43,8 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->price ?? '-' }}</td>
                                     <td>{{ $item->discount_price ?? '-' }}</td>
+                                    <td>{{ $item->present_stock ?? '-' }}</td>
+                                    <td>{{ $item->total_sold ?? '-' }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <img src="{{ asset($item->image) }}" alt="Banner Image" class="rounded me-2"
@@ -51,6 +55,9 @@
                                     <td>
                                         <a href="{{ route('product.edit', $item->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('product.stock', $item->id) }}"
+                                            class="btn btn-success btn-sm">Adjust
+                                            Stock</a>
                                         <form action="{{ route('product.destroy', $item->id) }}" method="POST"
                                             class="d-inline-block">
                                             @csrf

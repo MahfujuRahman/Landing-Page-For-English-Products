@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('website', WebsiteController::class);
     Route::resource('product-group', ProductGroupController::class);
 
+    Route::get('product/stocks/{id}', [ProductController::class, 'stock'])->name('product.stock');
+    Route::post('product/stocks-update/{id}', [ProductController::class, 'stock_update'])->name('product.stock-update');
+
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('setting/{slug}', [SettingController::class, 'fetchData'])->name('setting.fetch');
     Route::post('setting/{slug}', [SettingController::class, 'postData'])->name('setting.update');

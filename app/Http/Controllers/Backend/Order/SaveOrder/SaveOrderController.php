@@ -91,6 +91,8 @@ class SaveOrderController extends Controller
 
         $product_items = Product::orderBy('id')->get();
 
+
+
         foreach ($cart as $cartItem) {
             foreach ($product_items as $product) {
                 if ($product['id'] == $cartItem['id']) {
@@ -107,6 +109,13 @@ class SaveOrderController extends Controller
                 }
             }
         }
+
+        try {
+            $stockCalculate = $this->calculateStocks($productDetails);
+        } catch (\Throwable $th) {
+            // echo $e->getMessage();
+        }
+
 
         $globalDiscountAmount = ($this->global_discount / 100) * $orderTotal;
         $coupon_discount_amount = 0;
@@ -370,4 +379,53 @@ class SaveOrderController extends Controller
             ]);
         }
     }
+
+    // public function calculateStocks($productDetails)
+    // {
+    //     foreach ($productDetails as $product) {
+    //         $product = Product::findOrFail($product['id']);
+    //         $product->total_sold += $product['qty'];
+    //         $product->present_stock -= $product['qty'];
+    //         $product->update();
+    //     }
+
+    //     return $productDetails;
+    // }
+
+    public function calculateStocks($productDetails)
+{
+    try {
+        foreach ($productDetails as $productDetail) {
+            $product = Product::findOrFail($productDetail['id']);
+
+            $oldTotalSold = $product->total_sold;
+            $oldPresentStock = $product->present_stock;
+
+            $product->total_sold += $productDetail['qty'];
+            $product->present_stock -= $productDetail['qty'];
+            $product->update();
+
+            // Log the stock update
+            \Log::info("Stock updated successfully for product ID {$product->id}.", [
+                'old_total_sold' => $oldTotalSold,
+                'new_total_sold' => $product->total_sold,
+                'old_present_stock' => $oldPresentStock,
+                'new_present_stock' => $product->present_stock,
+            ]);
+        }
+
+        \Log::info('Stock calculation completed successfully.', ['product_details' => $productDetails]);
+    } catch (\Exception $e) {
+        // Log the failure
+        \Log::error('Error occurred during stock calculation.', [
+            'product_details' => $productDetails,
+            'error_message' => $e->getMessage(),
+        ]);
+
+        // Optionally, rethrow the exception if it needs to be handled upstream
+        throw $e;
+    }
+
+    return $productDetails;
+}
 }

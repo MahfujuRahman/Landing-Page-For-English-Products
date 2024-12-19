@@ -13,7 +13,7 @@ class SmsGatewayController extends AdminController
     {
         parent::__construct();
     }
-
+    
     public function index()
     {
         $user = Auth::user()->id;
@@ -21,8 +21,8 @@ class SmsGatewayController extends AdminController
         $website_id = $this->website_active_id;
 
         $data = SmsGatewayInfo::where('user_id', $user)
-        ->where('website_id', $website_id['user_website_active'])
-        ->orderBy('id')->first();
+            ->where('website_id', $website_id['user_website_active'] ?? 0)
+            ->orderBy('id')->first();
         $website = $this->website;
 
         return view('Backend.pages.sms-gateway.index', compact('data', 'website'));

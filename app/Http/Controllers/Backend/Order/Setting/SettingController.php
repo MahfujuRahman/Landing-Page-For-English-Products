@@ -20,10 +20,10 @@ class SettingController extends AdminController
 
         $website_id = $this->website_active_id;
         $data = Setting::where('user_id', Auth::user()->id)
-            ->where('website_id', $website_id['user_website_active'])
+            ->where('website_id', $website_id['user_website_active']  ?? 0)
             ->select('id', 'title', 'value')->get();
 
-        $details = Setting::where('website_id', $website_id['user_website_active'])->first();
+        $details = Setting::where('website_id', $website_id['user_website_active']  ?? 0)->first();
 
         $website = $this->website;
 
