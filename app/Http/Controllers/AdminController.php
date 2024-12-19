@@ -44,8 +44,14 @@ class AdminController extends BaseController
     {
         $user = Auth::user()->id;
 
-        $active_website = UserWebsiteActive::where("user_id", $user)
-        ->select('id', 'user_website_active', 'user_id')->first() ?? null;
+        $active_website = UserWebsiteActive::with([
+            'website' => function ($query) {
+                $query->select('id', 'site_name', 'site_url', 'domain_name');
+            }
+        ])
+            ->where('user_id', $user)
+            ->select('id', 'user_website_active', 'user_id')
+            ->first() ?? null;
 
         view()->share('website_active_id', $active_website);
 

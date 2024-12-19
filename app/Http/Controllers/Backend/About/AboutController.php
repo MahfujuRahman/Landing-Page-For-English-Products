@@ -16,13 +16,17 @@ class AboutController extends AdminController
     }
     public function index()
     {
-        $data = About::orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $data = About::where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.about.index', compact('data'));
     }
 
     public function create()
     {
-        $authUser = auth()->user()->id;
+        $authUser = Auth::user()->id;
         $website = Website::where('user_id', $authUser)->get();
 
         return view('Backend.pages.about.create', compact('website'));
@@ -40,7 +44,7 @@ class AboutController extends AdminController
             'description_second' => 'nullable|string',
         ]);
 
-        $about = About::where('user_id', auth()->user()->id)
+        $about = About::where('user_id', Auth::user()->id)
             ->where('website_id', $data['website_id'])
             ->first();
 
@@ -49,7 +53,7 @@ class AboutController extends AdminController
         }
 
         About::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth::user()->id,
             'website_id' => $data['website_id'],
             'title' => $data['title'],
             'button_title' => $data['button_title'],

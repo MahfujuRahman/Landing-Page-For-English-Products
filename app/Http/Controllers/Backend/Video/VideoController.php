@@ -19,7 +19,11 @@ class VideoController extends AdminController
     }
     public function index()
     {
-        $videos = Video::get();
+        $website_active_id = $this->website_active_id;
+
+        $videos = Video::where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.video.index', compact('videos'));
     }
 

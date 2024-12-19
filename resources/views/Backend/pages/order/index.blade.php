@@ -10,6 +10,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Order List
+                    <sub>
+                        ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                    </sub>
+                </h2>
+                <a href="{{ route('product-group.create') }}" class="btn btn-primary">Add Product Group</a>
+            </div>
 
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">

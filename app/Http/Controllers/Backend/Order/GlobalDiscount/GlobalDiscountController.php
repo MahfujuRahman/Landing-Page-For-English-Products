@@ -16,13 +16,17 @@ class GlobalDiscountController extends AdminController
     }
     public function index()
     {
-        $data = GlobalDiscount::orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $data = GlobalDiscount::where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.global_discount.index', compact('data'));
     }
 
     public function create()
     {
-        $authUser = auth()->user()->id;
+        $authUser = Auth::user()->id;
         $website = Website::where('user_id', $authUser)->get();
 
         return view('Backend.pages.global_discount.create', compact('website'));

@@ -15,13 +15,18 @@ class ImageGalleryController extends AdminController
 {
     public function index()
     {
-        $data = ImageGalleryTitle::with('images')->orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $data = ImageGalleryTitle::with('images')
+            ->where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.image_gallery.index', compact('data'));
     }
 
     public function create()
     {
-        $authUser = auth()->user()->id;
+        $authUser = Auth::user()->id;
         $website = Website::where('user_id', $authUser)->get();
 
         return view('Backend.pages.image_gallery.create', compact('website'));

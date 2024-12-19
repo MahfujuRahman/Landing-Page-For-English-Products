@@ -8,7 +8,11 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h2>Courier Info</h2>
+                            <h2>Courier Info
+                                <sub>
+                                    ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                                </sub>
+                            </h2>
                         </div>
                         <div>
                             <a href="{{ route('courier.index') }}" class="btn btn-dark mb-3">Back</a>

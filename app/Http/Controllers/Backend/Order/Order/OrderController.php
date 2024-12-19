@@ -14,7 +14,11 @@ class OrderController extends AdminController
     }
     public function index()
     {
-        $data = OrderSheet::orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $data = OrderSheet::where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.order.index', compact('data'));
     }
 

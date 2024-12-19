@@ -11,7 +11,11 @@
                 </div>
             @endif
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Banner's</h2>
+                <h2>Banner's
+                    <sub>
+                        ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                    </sub>
+                </h2>
                 <a href="{{ route('banners.create') }}" class="btn btn-primary">Add Banner</a>
             </div>
 

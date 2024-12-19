@@ -12,7 +12,11 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Global Discount</h2>
+            <h2>Global Discount
+                <sub>
+                    ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                </sub>
+            </h2>
             <a href="{{ route('global-discounts.create') }}" class="btn btn-primary">Add Discount</a>
         </div>
 

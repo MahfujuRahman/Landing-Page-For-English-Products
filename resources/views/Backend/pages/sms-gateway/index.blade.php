@@ -8,7 +8,11 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h2>Sms Gateway Info</h2>
+                            <h2>Sms Gateway Info
+                                <sub>
+                                    ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                                </sub>
+                            </h2>
                         </div>
                         <div>
                             <a href="{{ route('sms-gateway.index') }}" class="btn btn-dark mb-3">Back</a>
@@ -49,8 +53,7 @@
                         <div class="mb-4">
                             <label for="app_key" class="form-label">App Key</label>
                             <input type="text" class="form-control" id="app_key" name="app_key"
-                                value="{{ old('app_key') ?? ($data->app_key ?? '') }}" placeholder="Enter App Key"
-                                required>
+                                value="{{ old('app_key') ?? ($data->app_key ?? '') }}" placeholder="Enter App Key" required>
                         </div>
 
                         <div class="mb-4">

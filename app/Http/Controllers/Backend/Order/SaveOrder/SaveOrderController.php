@@ -77,6 +77,8 @@ class SaveOrderController extends Controller
     }
     public function save_order()
     {
+
+
         $data = request()->all();
         $cart = $data['cart'];
         $couponCode = $data['couponCode'];
@@ -130,9 +132,10 @@ class SaveOrderController extends Controller
         $slug = Str::slug('MC') . '-' . now()->format('dmyHis');
         $insertedId = '';
 
+
         $table_data =  [
             'user_id' => Auth::user()->id,
-            'website_id' => null,
+            'website_id' => $data['website_id'] ?? null,
 
             'full_name' => $data['full_name'],
             'phone_number' => $data['phone_number'],
@@ -393,39 +396,39 @@ class SaveOrderController extends Controller
     // }
 
     public function calculateStocks($productDetails)
-{
-    try {
-        foreach ($productDetails as $productDetail) {
-            $product = Product::findOrFail($productDetail['id']);
+    {
+        try {
+            foreach ($productDetails as $productDetail) {
+                $product = Product::findOrFail($productDetail['id']);
 
-            $oldTotalSold = $product->total_sold;
-            $oldPresentStock = $product->present_stock;
+                $oldTotalSold = $product->total_sold;
+                $oldPresentStock = $product->present_stock;
 
-            $product->total_sold += $productDetail['qty'];
-            $product->present_stock -= $productDetail['qty'];
-            $product->update();
+                $product->total_sold += $productDetail['qty'];
+                $product->present_stock -= $productDetail['qty'];
+                $product->update();
 
-            // Log the stock update
-            \Log::info("Stock updated successfully for product ID {$product->id}.", [
-                'old_total_sold' => $oldTotalSold,
-                'new_total_sold' => $product->total_sold,
-                'old_present_stock' => $oldPresentStock,
-                'new_present_stock' => $product->present_stock,
+                // Log the stock update
+                \Log::info("Stock updated successfully for product ID {$product->id}.", [
+                    'old_total_sold' => $oldTotalSold,
+                    'new_total_sold' => $product->total_sold,
+                    'old_present_stock' => $oldPresentStock,
+                    'new_present_stock' => $product->present_stock,
+                ]);
+            }
+
+            \Log::info('Stock calculation completed successfully.', ['product_details' => $productDetails]);
+        } catch (\Exception $e) {
+            // Log the failure
+            \Log::error('Error occurred during stock calculation.', [
+                'product_details' => $productDetails,
+                'error_message' => $e->getMessage(),
             ]);
+
+            // Optionally, rethrow the exception if it needs to be handled upstream
+            throw $e;
         }
 
-        \Log::info('Stock calculation completed successfully.', ['product_details' => $productDetails]);
-    } catch (\Exception $e) {
-        // Log the failure
-        \Log::error('Error occurred during stock calculation.', [
-            'product_details' => $productDetails,
-            'error_message' => $e->getMessage(),
-        ]);
-
-        // Optionally, rethrow the exception if it needs to be handled upstream
-        throw $e;
+        return $productDetails;
     }
-
-    return $productDetails;
-}
 }

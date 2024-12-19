@@ -10,7 +10,11 @@
                 </div>
             @endif
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Video's</h2>
+                <h2>Video's
+                    <sub>
+                        ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                    </sub>
+                </h2>
                 <a href="{{ route('video.create') }}" class="btn btn-primary">Add Video</a>
             </div>
 

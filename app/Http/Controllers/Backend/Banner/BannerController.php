@@ -20,7 +20,12 @@ class BannerController extends AdminController
     }
     public function index()
     {
-        $banners = Banner::with('images')->orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $banners = Banner::with('images')
+            ->where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.banner.index', compact('banners'));
     }
 

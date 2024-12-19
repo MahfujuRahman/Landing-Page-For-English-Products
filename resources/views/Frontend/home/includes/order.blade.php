@@ -112,6 +112,7 @@
                     </div>
 
                     <div class="row gy-4 mt-4 submission_form">
+                        <input type="text" name="website_id" value="{{ $banner->website_id }}" hidden>
                         <div class="col-md-6">
                             <label for="full_name" class="pb-2 bangla-font">
                                 🖊️ সম্পূর্ণ নাম

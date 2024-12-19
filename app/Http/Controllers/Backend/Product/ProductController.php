@@ -20,7 +20,12 @@ class ProductController extends AdminController
     }
     public function index()
     {
-        $data = Product::with('productGroup')->orderBy('id')->get();
+        $website_active_id = $this->website_active_id;
+
+        $data = Product::with('productGroup')
+            ->where('website_id', $website_active_id['user_website_active'])
+            ->orderBy('id')->get();
+
         return view('Backend.pages.product.index', compact('data'));
     }
 

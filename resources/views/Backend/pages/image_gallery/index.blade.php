@@ -10,7 +10,11 @@
             </div>
         @endif
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Image Gallery</h2>
+            <h2>Image Gallery
+                <sub>
+                    ({{ $website_active_id->website->site_url }}.{{ $website_active_id->website->domain_name }})
+                </sub>
+            </h2>
             <a href="{{ route('image-gallery.create') }}" class="btn btn-primary">Add Image</a>
         </div>
 
