@@ -48,7 +48,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('product-group.index') }}" class="nav-link">
-                        <i class="nav-icon bi bi-box"></i>
+                        <i class="nav-icon bi bi-box-seam"></i>
                         <p> Product Group</p>
                     </a>
                 </li>

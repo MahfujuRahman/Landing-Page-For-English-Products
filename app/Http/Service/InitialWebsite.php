@@ -13,6 +13,8 @@ use App\Http\Service\actions\product;
 use App\Http\Service\actions\imageGallery;
 use App\Http\Service\actions\order;
 use App\Http\Service\actions\setting;
+use App\Http\Service\actions\courier;
+use App\Http\Service\actions\sms_gateway;
 
 class InitialWebsite
 {
@@ -34,6 +36,8 @@ class InitialWebsite
         $this->init_coupon($id);
         $this->init_setting($id);
         $this->init_product_group($id);
+        $this->init_courier($id);
+        $this->init_sms_gateway($id);
     }
 
     public function init_banner($id)
@@ -84,6 +88,16 @@ class InitialWebsite
     public function init_product_group($id)
     {
         $setiing = new product_group();
+        $setiing->execute($id);
+    }
+    public function init_courier($id)
+    {
+        $setiing = new courier();
+        $setiing->execute($id);
+    }
+    public function init_sms_gateway($id)
+    {
+        $setiing = new sms_gateway();
         $setiing->execute($id);
     }
 }

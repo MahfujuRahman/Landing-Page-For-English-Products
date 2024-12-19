@@ -56,6 +56,7 @@ class VisitorController extends Controller
             'ip' => $ip,
             'lat' => $lat,
             'lon' => $lon,
+            'date' => Carbon::now()->toDateString(),
             'url' => $url,
             'city' => $city,
             'region' => $region,

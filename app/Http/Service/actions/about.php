@@ -99,7 +99,7 @@ class about
         AboutModel::create([
             'user_id' => Auth::user()->id,
             'website_id' => $id,
-            'title' => 'আমাদের বিশিষ্ট সমূহ',
+            'title' => 'আমাদের বৈশিষ্ট্য সমূহ',
             'button_title' => 'এখানে ক্লিক করুন',
             'button_url' => url('/#order'),
             'description_first' => $description_1,
